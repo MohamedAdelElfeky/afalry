@@ -1,4 +1,4 @@
-<!--begin::Modal - Invite Friends-->
+{{-- <!--begin::Modal - Invite Friends-->
 <div class="modal fade" id="kt_modal_invite_friends" tabindex="-1" aria-hidden="true">
 	<!--begin::Modal dialog-->
 	<div class="modal-dialog mw-650px">
@@ -546,4 +546,4 @@
 	</div>
 	<!--end::Modal dialog-->
 </div>
-<!--end::Modal - Invite Friend-->
+<!--end::Modal - Invite Friend--> --}}

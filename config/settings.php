@@ -25,7 +25,7 @@ return [
     # Theme Direction
     # Value: ltr | rtl
 
-    'KT_THEME_DIRECTION' => 'ltr',
+    'KT_THEME_DIRECTION' => 'rtl',
 
 
     # Keenicons
@@ -44,7 +44,9 @@ return [
         'global'  => [
             'css' => [
                 'assets/plugins/global/plugins.bundle.css',
-                'assets/css/style.bundle.css',
+                // 'assets/plugins/global/plugins.bundle.rtl.css',
+                // 'assets/css/style.bundle.css',
+                'assets/css/style.bundle.rtl.css',
             ],
             'js'  => [
                 'assets/plugins/global/plugins.bundle.js',

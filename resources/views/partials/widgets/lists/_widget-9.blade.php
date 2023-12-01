@@ -1,4 +1,4 @@
-<!--begin::List widget 9-->
+{{-- <!--begin::List widget 9-->
 <div class="card card-flush h-xl-100">
 	<!--begin::Header-->
 	<div class="card-header py-7">
@@ -245,4 +245,4 @@
 	</div>
 	<!--end::Body-->
 </div>
-<!--end::List widget 9-->
+<!--end::List widget 9--> --}}

@@ -1,4 +1,4 @@
-<!--begin::Settings-->
+{{-- <!--begin::Settings-->
 <div data-kt-stepper-element="content">
 	<!--begin::Wrapper-->
 	<div class="w-100">
@@ -136,4 +136,4 @@
 	</div>
 	<!--end::Wrapper-->
 </div>
-<!--end::Settings-->
+<!--end::Settings--> --}}

@@ -1,4 +1,4 @@
-<!--begin::My apps-->
+{{-- <!--begin::My apps-->
 <div class="menu menu-sub menu-sub-dropdown menu-column w-100 w-sm-350px" data-kt-menu="true">
 	<!--begin::Card-->
 	<div class="card">
@@ -160,4 +160,4 @@
 	</div>
 	<!--end::Card-->
 </div>
-<!--end::My apps-->
+<!--end::My apps--> --}}

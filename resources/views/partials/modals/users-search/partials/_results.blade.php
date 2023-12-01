@@ -1,4 +1,4 @@
-<!--begin::Results(add d-none to below element to hide the users list by default)-->
+{{-- <!--begin::Results(add d-none to below element to hide the users list by default)-->
 <div data-kt-search-element="results" class="d-none">
 	<!--begin::Users-->
 	<div class="mh-375px scroll-y me-n7 pe-7">
@@ -620,4 +620,4 @@
 	</div>
 	<!--end::Actions-->
 </div>
-<!--end::Results-->
+<!--end::Results--> --}}

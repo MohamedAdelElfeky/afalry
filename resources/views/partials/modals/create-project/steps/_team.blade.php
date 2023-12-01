@@ -1,4 +1,4 @@
-<!--begin::Team-->
+{{-- <!--begin::Team-->
 <div data-kt-stepper-element="content">
 	<!--begin::Wrapper-->
 	<div class="w-100">
@@ -538,4 +538,4 @@
 	</div>
 	<!--end::Wrapper-->
 </div>
-<!--end::Team-->
+<!--end::Team--> --}}

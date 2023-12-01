@@ -1,4 +1,4 @@
-<!--begin::Step 5-->
+{{-- <!--begin::Step 5-->
 <div data-kt-stepper-element="content">
 	<div class="w-100 text-center">
 		<!--begin::Heading-->
@@ -14,4 +14,4 @@
 		<!--end::Illustration-->
 	</div>
 </div>
-<!--end::Step 5-->
+<!--end::Step 5--> --}}

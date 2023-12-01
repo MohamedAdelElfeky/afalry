@@ -1,4 +1,4 @@
-
+{{-- 
 
 <!--begin::Empty-->
 <div data-kt-search-element="empty" class="text-center d-none">
@@ -12,4 +12,4 @@
 	</div>
 	<!--end::Message-->
 </div>
-<!--end::Empty-->
+<!--end::Empty--> --}}

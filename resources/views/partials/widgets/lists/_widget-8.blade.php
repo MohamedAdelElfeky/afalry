@@ -1,4 +1,4 @@
-<!--begin::List widget 8-->
+{{-- <!--begin::List widget 8-->
 <div class="card card-flush h-xl-100">
 	<!--begin::Header-->
 	<div class="card-header pt-7 mb-5">
@@ -249,4 +249,4 @@
 	</div>
 	<!--end::Body-->
 </div>
-<!--end::LIst widget 8-->
+<!--end::LIst widget 8--> --}}

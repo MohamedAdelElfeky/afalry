@@ -1,4 +1,4 @@
-<!--begin::Recently viewed-->
+{{-- <!--begin::Recently viewed-->
 <div data-kt-search-element="results" class="d-none">
 	<!--begin::Items-->
 	<div class="scroll-y mh-200px mh-lg-350px">
@@ -234,4 +234,4 @@
 	</div>
 	<!--end::Items-->
 </div>
-<!--end::Recently viewed-->
+<!--end::Recently viewed--> --}}

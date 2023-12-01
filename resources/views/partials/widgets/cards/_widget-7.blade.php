@@ -1,4 +1,4 @@
-<!--begin::Card widget 7-->
+{{-- <!--begin::Card widget 7-->
 <div class="card card-flush h-md-50 mb-5 mb-xl-10">
 	<!--begin::Header-->
 	<div class="card-header pt-5">
@@ -47,4 +47,4 @@
 	</div>
 	<!--end::Card body-->
 </div>
-<!--end::Card widget 7-->
+<!--end::Card widget 7--> --}}

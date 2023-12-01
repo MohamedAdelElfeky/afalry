@@ -1,4 +1,4 @@
-<!--begin::Suggestions-->
+{{-- <!--begin::Suggestions-->
 <div data-kt-search-element="suggestions">
 	<!--begin::Heading-->
 	<h3 class="fw-semibold mb-5">Recently searched:</h3>
@@ -83,4 +83,4 @@
 	</div>
 	<!--end::Users-->
 </div>
-<!--end::Suggestions-->
+<!--end::Suggestions--> --}}

@@ -8,11 +8,17 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
+     * create br eng mohamed Adel Elfeky 
+     * email : mohamedelfeky1995@gmail.com 
+     * phone : +201010152694
      */
     public function up(): void
     {
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('categories', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->text('description');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -22,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('products');
+        Schema::dropIfExists('categories');
     }
 };

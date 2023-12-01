@@ -1,4 +1,4 @@
-<!--begin::Modal - View Users-->
+{{-- <!--begin::Modal - View Users-->
 <div class="modal fade" id="kt_modal_view_users" tabindex="-1" aria-hidden="true">
 	<!--begin::Modal dialog-->
 	<div class="modal-dialog mw-650px">
@@ -497,4 +497,4 @@
 	</div>
 	<!--end::Modal dialog-->
 </div>
-<!--end::Modal - View Users-->
+<!--end::Modal - View Users--> --}}

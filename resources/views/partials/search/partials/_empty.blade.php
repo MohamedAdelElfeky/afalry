@@ -1,4 +1,4 @@
-<!--begin::Empty-->
+{{-- <!--begin::Empty-->
 <div data-kt-search-element="empty" class="text-center d-none">
 	<!--begin::Icon-->
 	<div class="pt-10 pb-10">{!! getIcon('search-list', 'fs-4x opacity-50') !!}</div>
@@ -10,4 +10,4 @@
 	</div>
 	<!--end::Message-->
 </div>
-<!--end::Empty-->
+<!--end::Empty--> --}}

@@ -1,4 +1,4 @@
-<!--begin::Table widget 14-->
+{{-- <!--begin::Table widget 14-->
 <div class="card card-flush h-md-100">
 	<!--begin::Header-->
 	<div class="card-header pt-7">
@@ -193,4 +193,4 @@
 	</div>
 	<!--end: Card Body-->
 </div>
-<!--end::Table widget 14-->
+<!--end::Table widget 14--> --}}

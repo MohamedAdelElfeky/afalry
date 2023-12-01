@@ -1,4 +1,4 @@
-<!--begin::Empty-->
+{{-- <!--begin::Empty-->
 <div data-kt-search-element="empty" class="text-center d-none">
 	<!--begin::Message-->
 	<div class="fw-semibold py-10">
@@ -12,4 +12,4 @@
 	</div>
 	<!--end::Illustration-->
 </div>
-<!--end::Empty-->
+<!--end::Empty--> --}}
