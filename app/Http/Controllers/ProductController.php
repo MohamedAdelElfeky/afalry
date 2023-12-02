@@ -26,7 +26,7 @@ class ProductController extends Controller
     {
         $postData = ['BranchID' => 2];
         $response = Http::asForm()->post('https://fvtion.com/API/afirly/aljard.php', $postData);
-        dd($response);
+        // dd($response);
         if ($response->successful()) {
             $data = $response->json();
             foreach ($data as $item) {
