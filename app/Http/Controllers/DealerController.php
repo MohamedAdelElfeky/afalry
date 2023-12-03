@@ -21,25 +21,21 @@ class DealerController extends Controller
     public function sync()
     {
         $response = Http::asForm()->get('https://fvtion.com/API/afirly/store_menu.php');
-        
         if ($response->successful()) {
-            $data = json_decode($response->body(), true);
-    
-            if ($data === null && json_last_error() !== JSON_ERROR_NONE) {
-                return response()->json(['error' => 'Failed to decode JSON response']);
-            }
-    
+            $data = $response->json();
             foreach ($data as $item) {
-                Dealer::where('branch_id', $item['BranchID'])->update([
-                    'branch_id' => $item['BranchID'],
-                    'username'  => $item['UserName'],
-                ]);
+                Dealer::updateOrCreate(
+                    ['branch_id' => $item['BranchID']],
+                    [
+                        'branch_id'  => $item['BranchID'],
+                        'username'  => $item['UserName'],
+                    ]
+                );
             }
-    
             return response()->json(['message' => 'Sync successful']);
         } else {
+            // Handle the case when the request fails
             return response()->json(['error' => 'Failed to fetch data from the API'], $response->status());
         }
     }
-    
 }
