@@ -20,7 +20,7 @@ class DealerController extends Controller
 
     public function sync()
     {
-        $response = Http::asForm()->get('https://fvtion.com/API/afirly/aljard.php');
+        $response = Http::asForm()->get('https://fvtion.com/API/afirly/store_menu.php');
         
         if ($response->successful()) {
             $data = json_decode($response->body(), true);
