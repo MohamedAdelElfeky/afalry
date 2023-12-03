@@ -18,25 +18,12 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'first_name',
-        'last_name',
+        'name',
         'email',
         'phone',
         'password',
-        'location',
-        'birth_date',
-        'national_id',
         'avatar',
-        'card_images',
-        'neighborhood_id',
-        'region_id',
-        'city_id',
-        'registration_confirmed',
-        'national_card_image_front',
-        'national_card_image_back',
-        'mobile_number_visibility',
-        'birthdate_visibility',
-        'email_visibility',
+        // 'registration_confirmed',
     ];
 
     /**
@@ -57,4 +44,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    
+    public function likes()
+    {
+        return $this->hasMany(Like::class, 'user_id');
+    }
 }

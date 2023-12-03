@@ -18,9 +18,7 @@ return new class extends Migration
             $table->id();
             $table->string('url');
             $table->string('imageable_type'); 
-            $table->unsignedBigInteger('imageable_id'); 
-            $table->string('image_type')->nullable(); 
-            $table->string('mime')->nullable();
+            $table->unsignedBigInteger('imageable_id');            
             $table->timestamps();
         });
     }

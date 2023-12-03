@@ -15,17 +15,10 @@ class UserResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id'  => $this->id,
-            'avatar' => $this->avatar,
-            'first_name' => $this->first_name,
-            'last_name' => $this->last_name,
+            'id' => $this->id,
+            'name' => $this->name,
             'email' => $this->email,
-            'phone' => $this->phone,
-            'birth_date' => $this->birth_date ? date('Y-m-d', strtotime($this->birth_date)) : null,
-            'city' =>  new CityResource($this->city),
-            'mobile_number_visibility' =>  $this->mobile_number_visibility,
-            'birthdate_visibility' => $this->birthdate_visibility,
-            'email_visibility' => $this->email_visibility,
+            'phone' => $this->phone,           
         ];
     }
 }

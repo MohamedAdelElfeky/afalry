@@ -8,7 +8,7 @@
             <div class="card-toolbar" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover"
                 title="Click to add a Family">
                 <a href="{{ route('products.sync.store') }}" class="btn btn-sm btn-light btn-active-primary">
-                    <i class="ki-duotone ki-plus fs-2"></i>{{ __('lang.add_new_dealer') }}</a>
+                    <i class="ki-duotone ki-plus fs-2"></i>{{ __('lang.create_new_product') }}</a>
             </div>
         </div>
         <div class="card-body py-3">

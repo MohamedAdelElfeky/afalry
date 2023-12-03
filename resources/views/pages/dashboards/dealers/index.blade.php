@@ -7,7 +7,7 @@
             </h3>
             <div class="card-toolbar" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover"
                 title="Click to add a Family">
-                <a href="{{ route('dealers.store') }}" class="btn btn-sm btn-light btn-active-primary">
+                <a href="{{ route('dealers.sync.store') }}" class="btn btn-sm btn-light btn-active-primary">
                     <i class="ki-duotone ki-plus fs-2"></i>{{ __('lang.add_new_dealer') }}</a>
             </div>
         </div>

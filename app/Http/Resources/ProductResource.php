@@ -30,6 +30,7 @@ class ProductResource extends JsonResource
             'status' => $this->status,
             'type_rate' => $this->type_rate,
             'value_rate' => $this->value_rate,
+            'images' => $this->images ? ImageResource::collection($this->images) : null,
         ];
     }
 }

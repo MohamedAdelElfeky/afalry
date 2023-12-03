@@ -30,6 +30,14 @@
                     <span class="menu-title"> {{ __('lang.dealers') }}</span>
                 </a>
             </div>
+            <div class="menu-item">
+                <a class="menu-link" href="{{ route('cities.index') }}">
+                    <span class="menu-bullet">
+                        <span class="menu-icon">{!! getIcon('element-11', 'fs-2') !!}</span>
+                    </span>
+                    <span class="menu-title"> {{ __('lang.cities') }}</span>
+                </a>
+            </div>
         </div>
     </div>
 </div>

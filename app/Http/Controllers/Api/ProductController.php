@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ProductResource;
+use App\Http\Resources\ProductWAttCommentResource;
 use App\Models\Product;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
@@ -31,6 +32,16 @@ class ProductController extends Controller
         try {
             $product = Product::findOrFail($id);
             return response()->json(new ProductResource($product), 200);
+        } catch (ModelNotFoundException $e) {
+            return response()->json(['error' => 'Product not found'], 404);
+        }
+    }
+
+    public function productsWAttribute($id)
+    {
+        try {
+            $product = Product::findOrFail($id);
+            return response()->json(new ProductWAttCommentResource($product), 200);
         } catch (ModelNotFoundException $e) {
             return response()->json(['error' => 'Product not found'], 404);
         }

@@ -46,5 +46,8 @@ return [
     'permissions' => 'الصلاحيات',
     'contacts' => 'اتصل بنا',
     'messages' => 'الرسائل',
+    'create_new_city' => 'اضافة مدينة جديد',
+    'cities' => 'المدن',
+
 
 ];

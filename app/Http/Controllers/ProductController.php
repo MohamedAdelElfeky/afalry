@@ -37,6 +37,7 @@ class ProductController extends Controller
                         'name'  => $item['Name'],
                         'price' => $item['Price'],
                         'balance' => $item['Balance'],
+                        // 'balance' => $item['Balance'],
                     ]
                 );
             }
