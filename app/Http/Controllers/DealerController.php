@@ -13,30 +13,33 @@ use Illuminate\Support\Facades\Http;
  */
 class DealerController extends Controller
 {
+    public function index()
+    {
+        return view('pages.dashboards.dealers.index');
+    }
+
     public function sync()
     {
         $response = Http::asForm()->get('https://fvtion.com/API/afirly/aljard.php');
-
+        
         if ($response->successful()) {
             $data = json_decode($response->body(), true);
-
+    
             if ($data === null && json_last_error() !== JSON_ERROR_NONE) {
                 return response()->json(['error' => 'Failed to decode JSON response']);
             }
-
+    
             foreach ($data as $item) {
-                Dealer::updateOrCreate(
-                    ['branch_id' => $item['BranchID']],
-                    [
-                        'branch_id' => $item['BranchID'],
-                        'username'  => $item['UserName'],
-                    ]
-                );
+                Dealer::where('branch_id', $item['BranchID'])->update([
+                    'branch_id' => $item['BranchID'],
+                    'username'  => $item['UserName'],
+                ]);
             }
-
+    
             return response()->json(['message' => 'Sync successful']);
         } else {
             return response()->json(['error' => 'Failed to fetch data from the API'], $response->status());
         }
     }
+    
 }
