@@ -16,9 +16,20 @@
                     <div class="row">
                         <div class="mb-3">
                             <label for="fs-6 fw-semibold mb-2">{{ __('lang.name') }}</label>
-                            <input type="text" name="username" class="form-control form-control-solid">
+                            <input type="text" name="name" class="form-control form-control-solid">
                         </div>
-                       
+                        <div class="mb-3">
+                            <label for="fs-6 fw-semibold mb-2">{{ __('lang.deleg_value') }}</label>
+                            <input type="number" name="deleg" class="form-control form-control-solid">
+                        </div>
+                        <div class="mb-3">
+                            <label for="fs-6 fw-semibold mb-2">{{ __('lang.com_value') }}</label>
+                            <input type="number" name="com" class="form-control form-control-solid">
+                        </div>
+                        <div class="mb-3">
+                            <label for="fs-6 fw-semibold mb-2">{{ __('lang.del_value') }}</label>
+                            <input type="number" name="del" class="form-control form-control-solid">
+                        </div>
                     </div>
                     <div class="text-end">
                         <button type="submit" class="btn btn-primary">{{ __('lang.new') }}</button>

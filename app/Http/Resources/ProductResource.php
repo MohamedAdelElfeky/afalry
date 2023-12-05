@@ -27,10 +27,13 @@ class ProductResource extends JsonResource
             'price' => $this->price,
             'balance' => $this->balance,
             'category_id' => $this->category_id,
+            'category' => new CategoryResource($this->category_id), 
             'status' => $this->status,
             'type_rate' => $this->type_rate,
             'value_rate' => $this->value_rate,
             'images' => $this->images ? ImageResource::collection($this->images) : null,
+            'product_attribute' =>  $this->productAttributes ? ProductAttributeResource::collection($this->productAttributes) : null,
+
         ];
     }
 }

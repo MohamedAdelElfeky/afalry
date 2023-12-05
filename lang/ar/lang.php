@@ -48,6 +48,14 @@ return [
     'messages' => 'الرسائل',
     'create_new_city' => 'اضافة مدينة جديد',
     'cities' => 'المدن',
-
+    'sing_in' => 'تسجيل الدخول',
+    'deleg_value' => 'قيمة الشحن',
+    'com_value' => 'حصة الشركة من قيمة الشحن',
+    'del_value' => 'حصة المندوب من قيمة الشحن',
+    'create_new_city_sync' => 'اضافة المدن بواسطة (Api)',
+    'add_new_dealer_sync' => 'اضافة التجار بواسطة (Api)',
+    'create_new_product_sync' => 'اضافة المنتجات بواسطة (Api)',
+    'product_attributes' => 'صفات المنتج',
+    'balance' => 'الرصيد',
 
 ];

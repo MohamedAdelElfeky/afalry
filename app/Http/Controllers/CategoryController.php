@@ -15,7 +15,8 @@ class CategoryController extends Controller
 {
    public function index()
    {
-      $categories = Category::all();
+      $paginate = \env('PAGINATE', 25);
+        $categories = Category::paginate($paginate);
       return view('pages.dashboards.categories.index', [
          'categories' => CategoryResource::collection($categories),
       ]);

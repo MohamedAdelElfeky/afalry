@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -14,6 +15,12 @@ class OfferResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'product' => new ProductResource($this->whenLoaded('product') ?? $this->product),
+            'type' => $this->type,
+            'value' => $this->value,
+            'end_date' => Carbon::parse($this->end_date)->format('Y-m-d'), 
+        ];
     }
 }

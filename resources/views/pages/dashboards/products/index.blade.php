@@ -1,35 +1,103 @@
 <x-default-layout>
-
     <div class="card mb-5 mb-xl-8">
         <div class="card-header border-0 pt-5">
             <h3 class="card-title align-items-start flex-column">
-                <span class="card-label fw-bold fs-3 mb-1">{{ __('lang.dealers') }}</span>
+                <span class="card-label fw-bold fs-3 mb-1">{{ __('lang.products') }}</span>
             </h3>
             <div class="card-toolbar" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover"
                 title="Click to add a Family">
-                <a href="{{ route('products.sync.store') }}" class="btn btn-sm btn-light btn-active-primary">
+                <a href="{{ route('cities.sync.store') }}" class="btn btn-sm btn-light btn-active-primary m-1">
+                    <i class="fas fa-sync"></i>{{ __('lang.create_new_product_sync') }}</a>
+
+                <a class="btn btn-sm btn-light btn-active-primary m-1" data-bs-toggle="modal"
+                    data-bs-target="#kt_modal_cities">
                     <i class="ki-duotone ki-plus fs-2"></i>{{ __('lang.create_new_product') }}</a>
             </div>
         </div>
         <div class="card-body py-3">
             <div class="table-responsive">
-                <table class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4" id="categoryTable">
+                <table class="table table-row-dashed table-sm table-responsive table-bordered gs-0 gy-4" id="categoryTable">
                     <thead>
                         <tr class="fw-bold text-muted">
                             <th class="min-w-25px">#</th>
-                            <th class="min-w-150px">{{ __('lang.photo') }}</th>
                             <th class="min-w-150px">{{ __('lang.name') }}</th>
+                            <th class="min-w-150px">{{ __('lang.description') }}</th>
+                            <th class="min-w-150px">{{ __('lang.price') }}</th>
+                            <th class="min-w-150px">{{ __('lang.balance') }}</th>
+                            <th class="min-w-150px">{{ __('lang.category') }}</th>
+                            <th class="min-w-150px">{{ __('lang.status') }}</th>
+                            <th class="min-w-150px">{{ __('lang.photo') }}</th>
+                            <th class="min-w-150px">{{ __('lang.product_attributes') }}</th>
                             <th class="min-w-100px text-end">{{ __('lang.actions') }}</th>
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach ($products as $item)
+                            <tr>
+                                <td>{{ $item->id }}</td>
+                                <td>{{ $item->name }}</td>
+                                <td>{{ $item->description }}</td>
+                                <td>{{ $item->price }}</td>
+                                <td>{{ $item->balance }}</td>
+                                <td>
+                                    @if ($item->category)
+                                        {{ $item->category->name }}
+                                    @else
+                                        No Category available
+                                    @endif
+                                </td>
+                                <td>{{ $item->status }}</td>                                
+                                <td>
+                                    @if ($item->images->isNotEmpty())
+                                        @foreach ($item->images as $image)
+                                            <img src="{{ $image->url }}" alt="Image">
+                                        @endforeach
+                                    @else
+                                        No images available
+                                    @endif
+                                </td>
+                                <td>
+                                    @if ($item->productAttributes->isNotEmpty())
+                                        @foreach ($item->productAttributes as $attribute)
+                                            {{ $attribute->attribute }} : {{ $attribute->value }}<br>
+                                        @endforeach
+                                    @else
+                                        No attributes available
+                                    @endif
+                                </td>
 
+                                <td>
+                                    <div class="d-flex justify-content-end flexpca-shrink-0">
+                                        <a class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
+                                            data-bs-toggle="modal" data-bs-target="#modal_cities{{ $item->id }}"
+                                            data-city-id="{{ $item->id }}">
+                                            <i class="ki-duotone ki-pencil fs-2">
+                                                <span class="path1"></span>
+                                                <span class="path2"></span>
+                                            </i>
+                                        </a>
+                                        {{-- @include('pages/dashboards/products/edit') --}}
+                                        <a data-city-id="{{ $item->id }}"
+                                            class="btn btn-sm btn-icon btn-color-light btn-bg-danger btn-active-color-dark me-1 delete-btn">
+                                            <i class="ki-duotone ki-abstract-11 fs-2">
+                                                <span class="path1"></span>
+                                                <span class="path2"></span>
+                                            </i>
+                                        </a>
+
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
+                {{ $products->links() }}
             </div>
         </div>
     </div>
-    @include('pages/dashboards/categories/add')
+
+    {{-- @include('pages/dashboards/products/add') --}}
+
     @section('script')
         <script>
             $(document).ready(function() {
@@ -59,26 +127,25 @@
             });
 
             $(document).ready(function() {
-                $('.editCategoryForm').submit(function(e) {
+                $('.editCitiesForm').submit(function(e) {
                     e.preventDefault();
                     $(this).find('button[type="submit"]').prop('disabled', true);
-                    var categoryId = $(this).data('category-id');
+                    var cityId = $(this).data('city-id');
                     var formData = new FormData(this);
                     $.ajax({
-                        url: 'categories/' + categoryId,
+                        url: 'cities/' + cityId,
                         type: 'POST',
                         data: formData,
                         processData: false,
                         contentType: false,
                         success: function(response) {
                             console.log(response);
-                            $("#categoryTable").load(location.href + " #categoryTable");
+                            // $("#categoryTable").load(location.href + " #categoryTable");
                             location.reload();
-                            $('#editCategoryModal' + categoryId).modal('hide');
+                            // $('#editCategoryModal' + categoryId).modal('hide');
                         },
                         error: function(xhr) {
                             console.log(xhr.responseText);
-
                             $('.editServiceForm').find('button[type="submit"]').prop('disabled',
                                 false);
                         }
@@ -94,7 +161,7 @@
                     Swal.fire({
                         icon: 'question',
                         title: 'Confirmation',
-                        text: 'Are you sure you want to delete this Category?',
+                        text: 'Are you sure you want to delete this ?',
                         showCancelButton: true,
                         confirmButtonText: 'Yes',
                         cancelButtonText: 'No'
@@ -118,7 +185,7 @@
                                     });
                                 },
                                 error: function(xhr) {
-                                    alert('Error deleting user');
+                                    alert('Error deleting ');
                                 }
                             });
                         }
@@ -127,6 +194,4 @@
             });
         </script>
     @endsection
-
-
 </x-default-layout>

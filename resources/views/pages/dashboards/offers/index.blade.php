@@ -1,45 +1,52 @@
 <x-default-layout>
-
     <div class="card mb-5 mb-xl-8">
         <div class="card-header border-0 pt-5">
             <h3 class="card-title align-items-start flex-column">
-                <span class="card-label fw-bold fs-3 mb-1">{{ __('lang.dealers') }}</span>
+                <span class="card-label fw-bold fs-3 mb-1">{{ __('lang.products') }}</span>
             </h3>
             <div class="card-toolbar" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover"
-                title="Click to add a Family">
-                <a href="{{ route('cities.sync.store') }}" class="btn btn-sm btn-light btn-active-primary m-1">
-                    <i class="fas fa-sync"></i>{{ __('lang.add_new_dealer_sync') }}</a>
-
+                title="Click to add">              
                 <a class="btn btn-sm btn-light btn-active-primary m-1" data-bs-toggle="modal"
-                    data-bs-target="#kt_modal_cities">
-                    <i class="ki-duotone ki-plus fs-2"></i>{{ __('lang.add_new_dealer') }}</a>
+                    data-bs-target="#kt_modal_add">
+                    <i class="ki-duotone ki-plus fs-2"></i>{{ __('lang.create_new_product') }}</a>
             </div>
         </div>
         <div class="card-body py-3">
             <div class="table-responsive">
-                <table class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4" id="categoryTable">
+                <table class="table table-row-dashed table-sm table-responsive table-bordered gs-0 gy-4" id="categoryTable">
                     <thead>
                         <tr class="fw-bold text-muted">
                             <th class="min-w-25px">#</th>
-                            <th class="min-w-150px">{{ __('lang.name') }}</th>
+                            <th class="min-w-150px">{{ __('lang.product') }}</th>
+                            <th class="min-w-150px">{{ __('lang.price') }}</th>
+                            <th class="min-w-150px">{{ __('lang.price') }}</th>
                             <th class="min-w-100px text-end">{{ __('lang.actions') }}</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($dealers as $item)
+                        @foreach ($productAttributes as $item)
                             <tr>
-                                <td>{{ $item->id }}</td>
-                                <td>{{ $item->username }}</td>                               
+                                <td>{{ $item->id }}</td>                  
+                                <td>
+                                    @if ($item->product)
+                                        {{ $item->product->name }}
+                                    @else
+                                        No Product available
+                                    @endif
+                                </td>
+                                <td>{{ $item->value }}</td>                               
+
                                 <td>
                                     <div class="d-flex justify-content-end flexpca-shrink-0">
                                         <a class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
-                                            data-bs-toggle="modal" data-bs-target="#modal_cities{{ $item->id }}" data-city-id="{{ $item->id }}">
+                                            data-bs-toggle="modal" data-bs-target="#modal_cities{{ $item->id }}"
+                                            data-city-id="{{ $item->id }}">
                                             <i class="ki-duotone ki-pencil fs-2">
                                                 <span class="path1"></span>
                                                 <span class="path2"></span>
                                             </i>
                                         </a>
-                                        @include('pages/dashboards/dealers/edit')
+                                        {{-- @include('pages/dashboards/products/edit') --}}
                                         <a data-city-id="{{ $item->id }}"
                                             class="btn btn-sm btn-icon btn-color-light btn-bg-danger btn-active-color-dark me-1 delete-btn">
                                             <i class="ki-duotone ki-abstract-11 fs-2">
@@ -54,12 +61,12 @@
                         @endforeach
                     </tbody>
                 </table>
-                {{ $dealers->links() }}
+                {{ $productAttributes->links() }}
             </div>
         </div>
     </div>
 
-    @include('pages/dashboards/dealers/add')
+    {{-- @include('pages/dashboards/products/add') --}}
 
     @section('script')
         <script>

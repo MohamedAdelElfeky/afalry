@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\DealerResource;
 use App\Models\Dealer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -13,10 +14,14 @@ use Illuminate\Support\Facades\Http;
  */
 class DealerController extends Controller
 {
-    public function index()
+     public function index()
     {
-        return view('pages.dashboards.dealers.index');
+        $paginate = \env('PAGINATE', 25);
+        $dealers = Dealer::paginate($paginate);
+
+        return view('pages.dashboards.dealers.index', ['dealers' => DealerResource::collection($dealers)]);
     }
+
 
     public function sync()
     {
