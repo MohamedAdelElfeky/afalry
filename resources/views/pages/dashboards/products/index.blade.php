@@ -6,7 +6,7 @@
             </h3>
             <div class="card-toolbar" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover"
                 title="Click to add a Family">
-                <a href="{{ route('cities.sync.store') }}" class="btn btn-sm btn-light btn-active-primary m-1">
+                <a href="{{ route('products.sync.store') }}" class="btn btn-sm btn-light btn-active-primary m-1">
                     <i class="fas fa-sync"></i>{{ __('lang.create_new_product_sync') }}</a>
 
                 <a class="btn btn-sm btn-light btn-active-primary m-1" data-bs-toggle="modal"
