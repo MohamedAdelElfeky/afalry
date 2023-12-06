@@ -20,7 +20,7 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('status_erp')->nullable()->comment('status_erp get by api');
             $table->string('name');
-            $table->string('color');
+            $table->string('color')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
