@@ -19,8 +19,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="fs-6 fw-semibold mb-2">{{ __('lang.color') }}</label>
-                            <input type="color" name="color" class="form-control form-control-solid color-input"
-                                value="{{ $item->color }}">
+                            <input type="color" name="color" class="form-control form-control-solid color-input">
                         </div>
 
                     </div>
