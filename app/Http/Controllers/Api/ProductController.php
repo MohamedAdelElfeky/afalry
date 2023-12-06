@@ -18,7 +18,7 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::all();
+        $products = Product::with('category')->get();
 
         if ($products->isEmpty()) {
             return response()->json(['message' => 'No Products found'], 200);
@@ -30,7 +30,7 @@ class ProductController extends Controller
     public function show($id)
     {
         try {
-            $product = Product::findOrFail($id);
+            $product = Product::with('category')->findOrFail($id);
             return response()->json(new ProductResource($product), 200);
         } catch (ModelNotFoundException $e) {
             return response()->json(['error' => 'Product not found'], 404);
@@ -40,7 +40,7 @@ class ProductController extends Controller
     public function productsWAttribute($id)
     {
         try {
-            $product = Product::findOrFail($id);
+            $product = Product::with('category')->findOrFail($id);
             return response()->json(new ProductWAttCommentResource($product), 200);
         } catch (ModelNotFoundException $e) {
             return response()->json(['error' => 'Product not found'], 404);

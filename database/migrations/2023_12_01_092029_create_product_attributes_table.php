@@ -4,13 +4,15 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
+/**
+ * create br eng mohamed Adel Elfeky 
+ * email : mohamedelfeky1995@gmail.com 
+ * phone : +201010152694
+ */
 return new class extends Migration
 {
     /**
-     * Run the migrations.
-     * create br eng mohamed Adel Elfeky 
-     * email : mohamedelfeky1995@gmail.com 
-     * phone : +201010152694
+     * Run the migrations.    
      */
     public function up(): void
     {
@@ -19,7 +21,7 @@ return new class extends Migration
             $table->unsignedBigInteger('product_id')->nullable();
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade')->nullable();
             $table->string('attribute');
-            $table->string('value');            
+            $table->string('value');
             $table->softDeletes();
             $table->timestamps();
         });

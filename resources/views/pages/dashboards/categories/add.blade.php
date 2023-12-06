@@ -1,4 +1,4 @@
-<div class="modal fade" id="kt_modal_cities" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="kt_modal_add" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog mw-650px">
         <div class="modal-content">
             <div class="modal-header pb-0 border-0 justify-content-end">
@@ -10,15 +10,18 @@
                 </div>
             </div>
             <div class="modal-body scroll-y mx-5 mx-xl-18 pt-0 pb-15">
-                <form id="createCitiesForm" action="{{ route('cities.store') }}" method="post"
-                    enctype="multipart/form-data">
+                <form id="createForm" action="{{ route('categories.store') }}" method="post">
                     @csrf
                     <div class="row">
                         <div class="mb-3">
                             <label for="fs-6 fw-semibold mb-2">{{ __('lang.name') }}</label>
-                            <input type="text" name="username" class="form-control form-control-solid">
+                            <input type="text" name="name" class="form-control form-control-solid">
                         </div>
-                       
+
+                        <div class="mb-3">
+                            <label for="fs-6 fw-semibold mb-2">{{ __('lang.description') }}</label>
+                            <textarea name="description" id="description" class="form-control form-control-solid"></textarea>
+                        </div>
                     </div>
                     <div class="text-end">
                         <button type="submit" class="btn btn-primary">{{ __('lang.new') }}</button>

@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Http;
  */
 class DealerController extends Controller
 {
-     public function index()
+    public function index()
     {
         $paginate = \env('PAGINATE', 25);
         $dealers = Dealer::paginate($paginate);
@@ -41,6 +41,34 @@ class DealerController extends Controller
         } else {
             // Handle the case when the request fails
             return response()->json(['error' => 'Failed to fetch data from the API'], $response->status());
+        }
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'username' => 'required|string|max:255',
+        ]);
+
+        $dealer =  Dealer::create($request->all());
+
+        return response()->json($dealer);
+    }
+    public function update(Request $request, $id)
+    {
+        $dealer = Dealer::find($id);
+        $dealer->update($request->all());
+        return response()->json(['message' => 'Dealer updated successfully']);
+    }
+    public function destroy($id)
+    {
+        $dealer = Dealer::findOrFail($id);
+
+        try {
+            $dealer->delete();
+            return response()->json(['message' => 'Dealer deleted successfully']);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Error deleting Dealer'], 500);
         }
     }
 }

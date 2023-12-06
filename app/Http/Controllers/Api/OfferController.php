@@ -12,9 +12,9 @@ class OfferController extends Controller
     public function index()
     {
         $paginate = \env('PAGINATE', 25);
-        $offers = Offer::paginate($paginate);
+        $offers = Offer::with('product', 'product.category')->paginate($paginate);
         if ($offers->isEmpty()) {
-            return response()->json(['message' => 'No Categories found'], 200);
+            return response()->json(['message' => 'No Offers found'], 200);
         }
         return response()->json(OfferResource::collection($offers), 200);
     }

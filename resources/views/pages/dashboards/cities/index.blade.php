@@ -5,13 +5,16 @@
             <h3 class="card-title align-items-start flex-column">
                 <span class="card-label fw-bold fs-3 mb-1">{{ __('lang.cities') }}</span>
             </h3>
-            <div class="card-toolbar" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover"
-                title="Click to add a Family">
-                <a href="{{ route('cities.sync.store') }}" class="btn btn-sm btn-light btn-active-primary m-1">
-                    <i class="fas fa-sync"></i>{{ __('lang.create_new_city_sync') }}</a>
+            <div class="card-toolbar" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover">
+                <form id="createSyncForm" action="{{ route('cities.sync.store') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="btn btn-sm btn-light btn-active-primary m-1">
+                        <i class="fas fa-sync"></i>{{ __('lang.create_new_city_sync') }}
+                    </button>
+                </form>
 
                 <a class="btn btn-sm btn-light btn-active-primary m-1" data-bs-toggle="modal"
-                    data-bs-target="#kt_modal_cities">
+                    data-bs-target="#kt_modal_add">
                     <i class="ki-duotone ki-plus fs-2"></i>{{ __('lang.create_new_city') }}</a>
             </div>
         </div>
@@ -38,15 +41,19 @@
                                 <td>{{ $item->del }}</td>
                                 <td>
                                     <div class="d-flex justify-content-end flexpca-shrink-0">
+
                                         <a class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
-                                            data-bs-toggle="modal" data-bs-target="#modal_cities{{ $item->id }}" data-city-id="{{ $item->id }}">
+                                            data-bs-toggle="modal" data-bs-target="#modal_edit{{ $item->id }}"
+                                            data-edit-id="{{ $item->id }}">
                                             <i class="ki-duotone ki-pencil fs-2">
                                                 <span class="path1"></span>
                                                 <span class="path2"></span>
                                             </i>
                                         </a>
+
                                         @include('pages/dashboards/cities/edit')
-                                        <a data-city-id="{{ $item->id }}"
+
+                                        <a data-delete-id="{{ $item->id }}"
                                             class="btn btn-sm btn-icon btn-color-light btn-bg-danger btn-active-color-dark me-1 delete-btn">
                                             <i class="ki-duotone ki-abstract-11 fs-2">
                                                 <span class="path1"></span>
@@ -70,9 +77,51 @@
     @section('script')
         <script>
             $(document).ready(function() {
-                $('#createCategoryForm').submit(function(e) {
+                $('#createSyncForm').submit(function(e) {
                     e.preventDefault();
-                    $('#createCategoryButton').prop('disabled', true);
+                    var formData = new FormData(this);
+
+                    $.ajax({
+                        url: $(this).attr('action'),
+                        type: 'POST',
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        success: function(response) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success',
+                                text: response.message,
+                                showConfirmButton: false,
+                                timer: 1500
+                            }).then(function() {
+                                location.reload();
+                            });
+                        },
+                        error: function(xhr) {
+                            console.log(xhr.responseText);
+                            var errorMessage =
+                            "An error occurred. Please try again.";
+
+                            if (xhr.responseJSON && xhr.responseJSON.message) {
+                                errorMessage = xhr.responseJSON.message;
+                            }
+
+                            Swal.fire({
+                                title: 'Error',
+                                text: xhr.responseJSON.message,
+                                icon: 'error'
+                            });
+                        }
+                    });
+                });
+            });
+
+
+            $(document).ready(function() {
+                $('#createForm').submit(function(e) {
+                    e.preventDefault();
+                    $('#createFormButton').prop('disabled', true);
                     var formData = new FormData(this);
                     $.ajax({
                         url: $(this).attr('action'),
@@ -81,42 +130,36 @@
                         processData: false,
                         contentType: false,
                         success: function(response) {
-                            $('#kt_modal_categoey').modal('hide');
-                            $("#categoryTable").load(location.href + " #categoryTable");
+                            $('#kt_modal_add').modal('hide');
                             location.reload();
-                            $('#createCategoryForm')[0].reset();
-                            $('#createCategoryButton').prop('disabled', false);
+                            // $('#createFormForm')[0].reset();
+                            // $('#createFormButton').prop('disabled', false);
                         },
                         error: function(xhr) {
                             console.log(xhr.responseText);
-                            $('#createCategoryButton').prop('disabled', false);
+                            $('#createFormButton').prop('disabled', false);
                         }
                     });
                 });
             });
 
             $(document).ready(function() {
-                $('.editCitiesForm').submit(function(e) {
+                $('.editForm').submit(function(e) {
                     e.preventDefault();
-                    $(this).find('button[type="submit"]').prop('disabled', true);
-                    var cityId = $(this).data('city-id');
                     var formData = new FormData(this);
+                    var editId = $(this).find('input[name="id"]').val();
                     $.ajax({
-                        url: 'cities/' + cityId,
-                        type: 'POST',
+                        url: $(this).attr('action'),
+                        type: $(this).attr('method'),
                         data: formData,
                         processData: false,
                         contentType: false,
                         success: function(response) {
-                            console.log(response);
-                            // $("#categoryTable").load(location.href + " #categoryTable");
+                            $('#modal_edit' + editId).modal('hide');
                             location.reload();
-                            // $('#editCategoryModal' + categoryId).modal('hide');
                         },
                         error: function(xhr) {
                             console.log(xhr.responseText);
-                            $('.editServiceForm').find('button[type="submit"]').prop('disabled',
-                                false);
                         }
                     });
                 });
@@ -124,20 +167,19 @@
 
             $(document).ready(function() {
                 $('.delete-btn').click(function() {
-                    var userId = $(this).data('category-id');
+                    var deleteId = $(this).data('delete-id');
                     var csrfToken = $('meta[name="csrf-token"]').attr('content');
-
                     Swal.fire({
                         icon: 'question',
-                        title: 'Confirmation',
-                        text: 'Are you sure you want to delete this ?',
+                        title: '{{ __('lang.confirmation') }}',
+                        text: '{{ __('lang.are_you_sure_you_want_to_delete') }}',
                         showCancelButton: true,
-                        confirmButtonText: 'Yes',
-                        cancelButtonText: 'No'
+                        confirmButtonText: '{{ __('lang.yes') }}',
+                        cancelButtonText: '{{ __('lang.no') }}'
                     }).then((result) => {
                         if (result.isConfirmed) {
                             $.ajax({
-                                url: 'categories/' + userId,
+                                url: 'cities/' + deleteId,
                                 type: 'DELETE',
                                 headers: {
                                     'X-CSRF-TOKEN': csrfToken
@@ -145,8 +187,8 @@
                                 success: function(response) {
                                     Swal.fire({
                                         icon: 'success',
-                                        title: 'Success',
-                                        text: response.message,
+                                        title: '{{ __('lang.deleted') }}',
+                                        text: '{{ __('lang.deleted_successfully') }}',
                                         showConfirmButton: false,
                                         timer: 1500
                                     }).then(function() {
@@ -154,7 +196,11 @@
                                     });
                                 },
                                 error: function(xhr) {
-                                    alert('Error deleting ');
+                                    Swal.fire({
+                                        title: '{{ __('lang.error') }}',
+                                        text: '{{ __('lang.an_error_occurred_while_deleting') }}',
+                                        icon: 'error'
+                                    });
                                 }
                             });
                         }

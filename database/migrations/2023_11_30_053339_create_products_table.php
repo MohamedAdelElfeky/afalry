@@ -4,19 +4,20 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
+/**
+ * Run the migrations.
+ * create br eng mohamed Adel Elfeky 
+ * email : mohamedelfeky1995@gmail.com 
+ * phone : +201010152694
+ */
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     * create br eng mohamed Adel Elfeky 
-     * email : mohamedelfeky1995@gmail.com 
-     * phone : +201010152694
-     */
+
     public function up(): void
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('product_id')->nullable()->comment('product_id get by api');
+            $table->bigInteger('product_erp')->nullable()->comment('product_erp get by api');
             $table->string('name')->nullable()->comment('name get by api');
             $table->text('description')->nullable();
             $table->decimal('price', 8, 3)->nullable()->comment('price get by api');

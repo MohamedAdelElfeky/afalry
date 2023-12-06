@@ -21,19 +21,20 @@ class ProductResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'product_id' => $this->product_id,
+            'product_erp' => $this->product_erp,
             'name' => $this->name,
             'description' => $this->description,
             'price' => $this->price,
             'balance' => $this->balance,
-            'category_id' => $this->category_id,
-            'category' => new CategoryResource($this->category_id), 
+            'category' => $this->whenLoaded('category', function () {
+                return new CategoryResource($this->category);
+            }),
             'status' => $this->status,
             'type_rate' => $this->type_rate,
             'value_rate' => $this->value_rate,
             'images' => $this->images ? ImageResource::collection($this->images) : null,
             'product_attribute' =>  $this->productAttributes ? ProductAttributeResource::collection($this->productAttributes) : null,
-
+            'comment' => $this->comments ? CommentResource::collection($this->comments) : null,
         ];
     }
 }

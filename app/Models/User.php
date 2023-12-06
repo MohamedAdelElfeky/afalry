@@ -4,13 +4,19 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+/**
+ * create br eng mohamed Adel Elfeky 
+ * email : mohamedelfeky1995@gmail.com 
+ * phone : +201010152694
+ */
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -18,12 +24,19 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'username',
+        'full_name',
         'email',
         'phone',
+        'key_phone',
         'password',
         'avatar',
-        // 'registration_confirmed',
+        'sex',
+        'categories',
+        'registration_confirmed',
+        'type',
+        'otp',
+
     ];
 
     /**
@@ -44,7 +57,7 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    
+
     public function likes()
     {
         return $this->hasMany(Like::class, 'user_id');

@@ -45,18 +45,34 @@ class CityController extends Controller
         }
     }
 
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'deleg' => 'nullable',
+            'com' => 'nullable',
+            'del' => 'nullable',
+        ]);
+
+        $city =  City::create($request->all());
+
+        return response()->json($city);
+    }
     public function update(Request $request, $id)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'deleg' => 'required|numeric',
-            'com' => 'required|numeric',
-            'del' => 'required|numeric',
-        ]);
-        $city = City::findOrFail($id);
-        $city->update($validatedData);
+        $city = City::find($id);
+        $city->update($request->all());
         return response()->json(['message' => 'City updated successfully']);
     }
+    public function destroy($id)
+    {
+        $city = City::findOrFail($id);
 
-    
+        try {
+            $city->delete();
+            return response()->json(['message' => 'City deleted successfully']);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Error deleting City'], 500);
+        }
+    }
 }
