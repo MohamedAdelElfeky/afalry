@@ -8,6 +8,7 @@ use App\Http\Resources\ProductWAttCommentResource;
 use App\Models\Product;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * create br eng mohamed Adel Elfeky 
@@ -44,6 +45,22 @@ class ProductController extends Controller
             return response()->json(new ProductWAttCommentResource($product), 200);
         } catch (ModelNotFoundException $e) {
             return response()->json(['error' => 'Product not found'], 404);
+        }
+    }
+
+    public function getUserLikes()
+    {
+        $user = Auth::user();
+        $likes = $user->likes;
+
+        if ($likes !== null) {
+            $formattedLikes = [
+                'type' => 'Products',
+                'data' => ProductResource::collection($likes)
+            ];
+            return response()->json(['data' => $formattedLikes]);
+        } else {
+            return response()->json(['data' => null]);
         }
     }
 }

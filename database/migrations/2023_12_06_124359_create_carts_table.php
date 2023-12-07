@@ -13,6 +13,18 @@ return new class extends Migration
     {
         Schema::create('carts', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('product_id')->nullable();
+            $table->integer('count');
+            $table->integer('price');
+            $table->unsignedBigInteger('order_id')->nullable();
+            $table->timestamps();
+
+            // Foreign keys
+            $table->foreign('user_id')->references('id')->on('users')->nullable();
+            $table->foreign('product_id')->references('id')->on('products')->nullable();
+            $table->foreign('order_id')->references('id')->on('orders')->onDelete('set null')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -20,7 +20,7 @@
         </div>
         <div class="card-body py-3">
             <div class="table-responsive">
-                <table class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4" id="categoryTable">
+                <table class="table table-row-dashed table-sm text-center gs-0 gy-4">
                     <thead>
                         <tr class="fw-bold text-muted">
                             <th class="min-w-25px">#</th>
@@ -34,7 +34,7 @@
                     <tbody>
                         @foreach ($cities as $item)
                             <tr>
-                                <td>{{ $item->id }}</td>
+                                <td>{{ $loop->iteration }}</td>
                                 <td>{{ $item->name }}</td>
                                 <td>{{ $item->deleg }}</td>
                                 <td>{{ $item->com }}</td>
@@ -42,7 +42,7 @@
                                 <td>
                                     <div class="d-flex justify-content-end flexpca-shrink-0">
 
-                                        <a class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
+                                        <a class="btn btn-icon btn-bg-light btn-color-warning btn-sm me-1"
                                             data-bs-toggle="modal" data-bs-target="#modal_edit{{ $item->id }}"
                                             data-edit-id="{{ $item->id }}">
                                             <i class="ki-duotone ki-pencil fs-2">
@@ -54,7 +54,7 @@
                                         @include('pages/dashboards/cities/edit')
 
                                         <a data-delete-id="{{ $item->id }}"
-                                            class="btn btn-sm btn-icon btn-color-light btn-bg-danger btn-active-color-dark me-1 delete-btn">
+                                            class="btn btn-icon btn-bg-light btn-color-danger btn-sm me-1 delete-btn">
                                             <i class="ki-duotone ki-abstract-11 fs-2">
                                                 <span class="path1"></span>
                                                 <span class="path2"></span>
@@ -67,7 +67,39 @@
                         @endforeach
                     </tbody>
                 </table>
-                {{ $cities->links() }}
+                <div class="pagination justify-content-center">
+                    <nav role="navigation" aria-label="Pagination Navigation">
+                        <div class="flex items-center justify-between">
+
+                            {{-- <a href="{{ $cities->url(1) }}" class="btn btn-outline-secondary">First</a> --}}
+                            <a href="{{ $cities->previousPageUrl() }}" class="btn btn-outline-secondary">«
+                                {{ __('lang.previous') }}</a>
+
+                            @foreach ($cities->getUrlRange(1, $cities->lastPage()) as $page => $url)
+                                <a href="{{ $url }}"
+                                    class="btn btn-outline-secondary {{ $page == $cities->currentPage() ? 'active' : '' }}">{{ $loop->iteration }}</a>
+                            @endforeach
+
+                            <a href="{{ $cities->nextPageUrl() }}" class="btn btn-outline-secondary">
+                                {{ __('lang.next') }} »</a>
+                            {{-- <a href="{{ $cities->url($cities->lastPage()) }}"
+                                class="btn btn-outline-secondary">Last</a> --}}
+
+                            <div class="text-center">
+                                <p class="text-sm text-gray-700 leading-5">
+                                    {{ __('lang.showing') }}
+                                    <span class="font-medium">{{ $cities->firstItem() }}</span>
+                                    {{ __('lang.to') }}
+                                    <span class="font-medium">{{ $cities->lastItem() }}</span>
+                                    {{ __('lang.of') }}
+                                    <span class="font-medium">{{ $cities->total() }}</span>
+                                    {{ __('lang.results') }}
+                                </p>
+                            </div>
+
+                        </div>
+                    </nav>
+                </div>
             </div>
         </div>
     </div>
@@ -101,7 +133,7 @@
                         error: function(xhr) {
                             console.log(xhr.responseText);
                             var errorMessage =
-                            "An error occurred. Please try again.";
+                                "An error occurred. Please try again.";
 
                             if (xhr.responseJSON && xhr.responseJSON.message) {
                                 errorMessage = xhr.responseJSON.message;

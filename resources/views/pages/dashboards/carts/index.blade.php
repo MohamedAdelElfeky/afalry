@@ -3,18 +3,12 @@
     <div class="card mb-5 mb-xl-8">
         <div class="card-header border-0 pt-5">
             <h3 class="card-title align-items-start flex-column">
-                <span class="card-label fw-bold fs-3 mb-1">{{ __('lang.dealers') }}</span>
+                <span class="card-label fw-bold fs-3 mb-1">{{ __('lang.carts') }}</span>
             </h3>
             <div class="card-toolbar" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover">
-                <form id="createSyncForm" action="{{ route('dealers.sync.store') }}" method="POST">
-                    @csrf
-                    <button type="submit" class="btn btn-sm btn-light btn-active-primary m-1">
-                        <i class="fas fa-sync"></i>{{ __('lang.add_new_dealer_sync') }}
-                    </button>
-                </form>
-                <a class="btn btn-sm btn-light btn-active-primary m-1" data-bs-toggle="modal"
+                {{-- <a class="btn btn-sm btn-light btn-active-primary m-1" data-bs-toggle="modal"
                     data-bs-target="#kt_modal_add">
-                    <i class="ki-duotone ki-plus fs-2"></i>{{ __('lang.add_new_dealer') }}</a>
+                    <i class="ki-duotone ki-plus fs-2"></i></a> --}}
             </div>
         </div>
         <div class="card-body py-3">
@@ -24,14 +18,16 @@
                         <tr class="fw-bold text-muted">
                             <th class="min-w-25px">#</th>
                             <th class="min-w-150px">{{ __('lang.name') }}</th>
+                            <th class="min-w-150px">{{ __('lang.description') }}</th>
                             <th class="min-w-100px text-end">{{ __('lang.actions') }}</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($dealers as $item)
+                        @foreach ($carts as $item)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $item->username }}</td>
+                                <td>{{ $item->name }}</td>
+                                <td>{{ $item->description }}</td>
                                 <td>
                                     <div class="d-flex justify-content-end flexpca-shrink-0">
 
@@ -44,7 +40,7 @@
                                             </i>
                                         </a>
 
-                                        @include('pages/dashboards/dealers/edit')
+                                        @include('pages/dashboards/categories/edit')
 
                                         <a data-delete-id="{{ $item->id }}"
                                             class="btn btn-icon btn-bg-light btn-color-danger btn-sm me-1 delete-btn">
@@ -53,7 +49,6 @@
                                                 <span class="path2"></span>
                                             </i>
                                         </a>
-
 
                                     </div>
                                 </td>
@@ -65,27 +60,28 @@
                     <nav role="navigation" aria-label="Pagination Navigation">
                         <div class="flex items-center justify-between">
 
-                            {{-- <a href="{{ $dealers->url(1) }}" class="btn btn-outline-secondary">First</a> --}}
-                            <a href="{{ $dealers->previousPageUrl() }}" class="btn btn-outline-secondary">«
+                            {{-- <a href="{{ $categories->url(1) }}" class="btn btn-outline-secondary">First</a> --}}
+                            <a href="{{ $categories->previousPageUrl() }}" class="btn btn-outline-secondary">«
                                 {{ __('lang.previous') }}</a>
 
-                            @foreach ($dealers->getUrlRange(1, $dealers->lastPage()) as $page => $url)
+                            @foreach ($categories->getUrlRange(1, $categories->lastPage()) as $page => $url)
                                 <a href="{{ $url }}"
-                                    class="btn btn-outline-secondary {{ $page == $dealers->currentPage() ? 'active' : '' }}">{{ $loop->iteration }}</a>
+                                    class="btn btn-outline-secondary {{ $page == $categories->currentPage() ? 'active' : '' }}">{{ $loop->iteration }}</a>
                             @endforeach
 
-                            <a href="{{ $dealers->nextPageUrl() }}" class="btn btn-outline-secondary"> {{ __('lang.next') }} »</a>
-                            {{-- <a href="{{ $dealers->url($dealers->lastPage()) }}"
+                            <a href="{{ $categories->nextPageUrl() }}" class="btn btn-outline-secondary">
+                                {{ __('lang.next') }} »</a>
+                            {{-- <a href="{{ $categories->url($categories->lastPage()) }}"
                                 class="btn btn-outline-secondary">Last</a> --}}
 
                             <div class="text-center">
                                 <p class="text-sm text-gray-700 leading-5">
-                                 {{ __('lang.showing') }}
-                                    <span class="font-medium">{{ $dealers->firstItem() }}</span>
+                                    {{ __('lang.showing') }}
+                                    <span class="font-medium">{{ $categories->firstItem() }}</span>
                                     {{ __('lang.to') }}
-                                    <span class="font-medium">{{ $dealers->lastItem() }}</span>
+                                    <span class="font-medium">{{ $categories->lastItem() }}</span>
                                     {{ __('lang.of') }}
-                                    <span class="font-medium">{{ $dealers->total() }}</span>
+                                    <span class="font-medium">{{ $categories->total() }}</span>
                                     {{ __('lang.results') }}
                                 </p>
                             </div>
@@ -97,75 +93,35 @@
         </div>
     </div>
 
-    @include('pages/dashboards/dealers/add')
+    {{-- @include('pages/dashboards/categories/add') --}}
 
     @section('script')
         <script>
-            $(document).ready(function() {
-                $('#createSyncForm').submit(function(e) {
-                    e.preventDefault();
-                    var formData = new FormData(this);
+            // $(document).ready(function() {
+            //     $('#createForm').submit(function(e) {
+            //         e.preventDefault();
+            //         $('#createFormButton').prop('disabled', true);
+            //         var formData = new FormData(this);
+            //         $.ajax({
+            //             url: $(this).attr('action'),
+            //             type: $(this).attr('method'),
+            //             data: formData,
+            //             processData: false,
+            //             contentType: false,
+            //             success: function(response) {
+            //                 $('#kt_modal_add').modal('hide');
+            //                 location.reload();
+            //                 // $('#createFormForm')[0].reset();
+            //                 // $('#createFormButton').prop('disabled', false);
+            //             },
+            //             error: function(xhr) {
+            //                 console.log(xhr.responseText);
+            //                 $('#createFormButton').prop('disabled', false);
+            //             }
+            //         });
+            //     });
+            // });
 
-                    $.ajax({
-                        url: $(this).attr('action'),
-                        type: 'POST',
-                        data: formData,
-                        processData: false,
-                        contentType: false,
-                        success: function(response) {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Success',
-                                text: response.message,
-                                showConfirmButton: false,
-                                timer: 1500
-                            }).then(function() {
-                                location.reload();
-                            });
-                        },
-                        error: function(xhr) {
-                            console.log(xhr.responseText);
-                            var errorMessage =
-                                "An error occurred. Please try again.";
-
-                            if (xhr.responseJSON && xhr.responseJSON.message) {
-                                errorMessage = xhr.responseJSON.message;
-                            }
-
-                            Swal.fire({
-                                title: 'Error',
-                                text: xhr.responseJSON.message,
-                                icon: 'error'
-                            });
-                        }
-                    });
-                });
-            });
-
-            $(document).ready(function() {
-                $('#createForm').submit(function(e) {
-                    e.preventDefault();
-                    $('#createFormButton').prop('disabled', true);
-                    var formData = new FormData(this);
-                    $.ajax({
-                        url: $(this).attr('action'),
-                        type: $(this).attr('method'),
-                        data: formData,
-                        processData: false,
-                        contentType: false,
-                        success: function(response) {
-                            $('#kt_modal_add').modal('hide');
-                            location.reload();
-                            // $('#createFormForm')[0].reset();
-                            // $('#createFormButton').prop('disabled', false);
-                        },
-                        error: function(xhr) {
-                            console.log(xhr.responseText);
-                            $('#createFormButton').prop('disabled', false);
-                        }
-                    });
-                });
-            });
 
             $(document).ready(function() {
                 $('.editForm').submit(function(e) {
@@ -203,7 +159,7 @@
                     }).then((result) => {
                         if (result.isConfirmed) {
                             $.ajax({
-                                url: 'dealers/' + deleteId,
+                                url: 'categories/' + deleteId,
                                 type: 'DELETE',
                                 headers: {
                                     'X-CSRF-TOKEN': csrfToken

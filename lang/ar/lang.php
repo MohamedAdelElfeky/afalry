@@ -82,5 +82,17 @@ return [
     'yearly_price' => 'السعر السنوي',
     'monthly_price' => 'السعر الشهري',
     'add_new_plan' => 'اضافة باقه جديد',
-
+    'previous' => 'السابق',
+    'next'     => 'التالي',
+    'showing' => 'عرض',
+    'to' => 'إلى',
+    'of' => 'من',
+    'results' => 'نتائج',
+    'active' => 'مفعل',
+    'inactive' => 'غير مفعل',
+    'no_images' => 'لا توجد صور',
+    'view_image' => 'عرض الصورة',
+    'no_attributes_available' => 'لا توجد صفات متاحة',
+    'no_category_available' => 'لا يوجد قسم ',
+    'sign_in' => 'تسجيل الدخول',
 ];

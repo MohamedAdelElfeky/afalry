@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\DealerResource;
+use App\Models\Dealer;
 use Illuminate\Http\Request;
 /**
  * create br eng mohamed Adel Elfeky 
@@ -11,5 +13,12 @@ use Illuminate\Http\Request;
  */
 class DealerController extends Controller
 {
-    //
+    public function index()
+    {
+        $dealers = Dealer::all();
+        if ($dealers->isEmpty()) {
+            return response()->json(['message' => 'No Dealers found'], 200);
+        }
+        return response()->json(DealerResource::collection($dealers), 200);
+    }
 }

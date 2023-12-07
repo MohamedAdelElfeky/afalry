@@ -47,7 +47,7 @@
                     <!--end::Logo-->
 
                     <!--begin::Image-->
-                    {{-- <img class="d-none d-lg-block mx-auto w-275px w-md-50 w-xl-500px mb-10 mb-lg-20" src="{{ image('logo-dark.png') }}" alt=""/> --}}
+                    <img class="d-none d-lg-block mx-auto w-275px w-md-50 w-xl-400px mb-10 mb-lg-20" src="{{ image('logo-dark.png') }}" alt=""/>
                     <!--end::Image-->
 
                     <!--begin::Title-->

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CityController;
@@ -30,7 +31,7 @@ Route::resource('plans', PlanController::class);
 Route::resource('statuses', StatusController::class);
 Route::resource('offers', OfferController::class);
 Route::resource('orders', OrderController::class);
-Route::resource('cart', CartController::class);
+Route::resource('carts', CartController::class);
 
 
 Route::match(['get', 'post'], 'products_sync', [ProductController::class, 'sync'])->name('products.sync.store');

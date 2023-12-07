@@ -14,7 +14,7 @@
         </div>
         <div class="card-body py-3">
             <div class="table-responsive">
-                <table class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4" id="categoryTable">
+                <table class="table table-row-dashed table-sm text-center gs-0 gy-4">
                     <thead>
                         <tr class="fw-bold text-muted">
                             <th class="min-w-25px">#</th>
@@ -26,13 +26,13 @@
                     <tbody>
                         @foreach ($categories as $item)
                             <tr>
-                                <td>{{ $item->id }}</td>
+                                <td>{{ $loop->iteration }}</td>
                                 <td>{{ $item->name }}</td>
                                 <td>{{ $item->description }}</td>
                                 <td>
                                     <div class="d-flex justify-content-end flexpca-shrink-0">
-                                        
-                                        <a class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
+
+                                        <a class="btn btn-icon btn-bg-light btn-color-warning btn-sm me-1"
                                             data-bs-toggle="modal" data-bs-target="#modal_edit{{ $item->id }}"
                                             data-edit-id="{{ $item->id }}">
                                             <i class="ki-duotone ki-pencil fs-2">
@@ -44,7 +44,7 @@
                                         @include('pages/dashboards/categories/edit')
 
                                         <a data-delete-id="{{ $item->id }}"
-                                            class="btn btn-sm btn-icon btn-color-light btn-bg-danger btn-active-color-dark me-1 delete-btn">
+                                            class="btn btn-icon btn-bg-light btn-color-danger btn-sm me-1 delete-btn">
                                             <i class="ki-duotone ki-abstract-11 fs-2">
                                                 <span class="path1"></span>
                                                 <span class="path2"></span>
@@ -57,7 +57,39 @@
                         @endforeach
                     </tbody>
                 </table>
-                {{ $categories->links() }}
+                <div class="pagination justify-content-center">
+                    <nav role="navigation" aria-label="Pagination Navigation">
+                        <div class="flex items-center justify-between">
+
+                            {{-- <a href="{{ $categories->url(1) }}" class="btn btn-outline-secondary">First</a> --}}
+                            <a href="{{ $categories->previousPageUrl() }}" class="btn btn-outline-secondary">«
+                                {{ __('lang.previous') }}</a>
+
+                            @foreach ($categories->getUrlRange(1, $categories->lastPage()) as $page => $url)
+                                <a href="{{ $url }}"
+                                    class="btn btn-outline-secondary {{ $page == $categories->currentPage() ? 'active' : '' }}">{{ $loop->iteration }}</a>
+                            @endforeach
+
+                            <a href="{{ $categories->nextPageUrl() }}" class="btn btn-outline-secondary">
+                                {{ __('lang.next') }} »</a>
+                            {{-- <a href="{{ $categories->url($categories->lastPage()) }}"
+                                class="btn btn-outline-secondary">Last</a> --}}
+
+                            <div class="text-center">
+                                <p class="text-sm text-gray-700 leading-5">
+                                    {{ __('lang.showing') }}
+                                    <span class="font-medium">{{ $categories->firstItem() }}</span>
+                                    {{ __('lang.to') }}
+                                    <span class="font-medium">{{ $categories->lastItem() }}</span>
+                                    {{ __('lang.of') }}
+                                    <span class="font-medium">{{ $categories->total() }}</span>
+                                    {{ __('lang.results') }}
+                                </p>
+                            </div>
+
+                        </div>
+                    </nav>
+                </div>
             </div>
         </div>
     </div>

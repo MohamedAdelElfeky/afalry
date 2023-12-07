@@ -14,7 +14,7 @@
         </div>
         <div class="card-body py-3">
             <div class="table-responsive">
-                <table class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4">
+                <table class="table table-row-dashed table-sm text-center gs-0 gy-4">
                     <thead>
                         <tr class="fw-bold text-muted">
                             <th class="min-w-25px">#</th>
@@ -30,7 +30,7 @@
                     <tbody>
                         @foreach ($plans as $item)
                             <tr>
-                                <td>{{ $item->id }}</td>
+                                <td>{{ $loop->iteration }}</td>
                                 <td>{{ $item->name }}</td>
                                 <td>{{ $item->des }}</td>
                                 <td>{{ $item->days }}</td>
@@ -38,15 +38,15 @@
                                 <td>{{ $item->yearly_price }}</td>
                                 <td>
                                     @if ($item->if_free == 0)
-                                        {{ __('lang.no') }}
+                                        <span class="btn btn-sm btn-danger w-75px">{{ __('lang.no') }}</span>
                                     @elseif ($item->if_free == 1)
-                                        {{ __('lang.yes') }}
+                                        <span class="btn btn-sm btn-success w-75px">{{ __('lang.yes') }}</span>
                                     @endif
                                 </td>
                                 <td>
                                     <div class="d-flex justify-content-end flexpca-shrink-0">
 
-                                        <a class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
+                                        <a class="btn btn-icon btn-bg-light btn-color-warning btn-sm me-1"
                                             data-bs-toggle="modal" data-bs-target="#modal_edit{{ $item->id }}"
                                             data-edit-id="{{ $item->id }}">
                                             <i class="ki-duotone ki-pencil fs-2">
@@ -58,7 +58,7 @@
                                         @include('pages/dashboards/plans/edit')
 
                                         <a data-delete-id="{{ $item->id }}"
-                                            class="btn btn-sm btn-icon btn-color-light btn-bg-danger btn-active-color-dark me-1 delete-btn">
+                                            class="btn btn-icon btn-bg-light btn-color-danger btn-sm me-1 delete-btn">
                                             <i class="ki-duotone ki-abstract-11 fs-2">
                                                 <span class="path1"></span>
                                                 <span class="path2"></span>
@@ -71,7 +71,39 @@
                         @endforeach
                     </tbody>
                 </table>
-                {{ $plans->links() }}
+                <div class="pagination justify-content-center">
+                    <nav role="navigation" aria-label="Pagination Navigation">
+                        <div class="flex items-center justify-between">
+
+                            {{-- <a href="{{ $plans->url(1) }}" class="btn btn-outline-secondary">First</a> --}}
+                            <a href="{{ $plans->previousPageUrl() }}" class="btn btn-outline-secondary">«
+                                {{ __('lang.previous') }}</a>
+
+                            @foreach ($plans->getUrlRange(1, $plans->lastPage()) as $page => $url)
+                                <a href="{{ $url }}"
+                                    class="btn btn-outline-secondary {{ $page == $plans->currentPage() ? 'active' : '' }}">{{ $loop->iteration }}</a>
+                            @endforeach
+
+                            <a href="{{ $plans->nextPageUrl() }}" class="btn btn-outline-secondary">
+                                {{ __('lang.next') }} »</a>
+                            {{-- <a href="{{ $plans->url($plans->lastPage()) }}"
+                                class="btn btn-outline-secondary">Last</a> --}}
+
+                            <div class="text-center">
+                                <p class="text-sm text-gray-700 leading-5">
+                                    {{ __('lang.showing') }}
+                                    <span class="font-medium">{{ $plans->firstItem() }}</span>
+                                    {{ __('lang.to') }}
+                                    <span class="font-medium">{{ $plans->lastItem() }}</span>
+                                    {{ __('lang.of') }}
+                                    <span class="font-medium">{{ $plans->total() }}</span>
+                                    {{ __('lang.results') }}
+                                </p>
+                            </div>
+
+                        </div>
+                    </nav>
+                </div>
             </div>
         </div>
     </div>

@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Http;
 
 class ProductController extends Controller
 {
+    
     public function index()
     {
         $paginate = \env('PAGINATE', 25);
@@ -44,6 +45,37 @@ class ProductController extends Controller
             return response()->json(['message' => 'Sync successful']);
         } else {
             return response()->json(['error' => 'Failed to fetch data from the API'], $response->status());
+        }
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+        ]);
+
+        $product =  Product::create($request->all());
+
+        return response()->json($product);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $product = Product::find($id);
+        $product->update($request->all());
+        return response()->json(['message' => 'Product updated successfully']);
+    }
+
+    public function destroy($id)
+    {
+        $product = Product::findOrFail($id);
+
+        try {
+            $product->delete();
+            return response()->json(['message' => 'Product deleted successfully']);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Error deleting Product'], 500);
         }
     }
 }

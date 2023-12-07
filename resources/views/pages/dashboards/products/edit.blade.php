@@ -10,7 +10,7 @@
                 </div>
             </div>
             <div class="modal-body scroll-y mx-5 mx-xl-18 pt-0 pb-15">
-                <form class="editForm" action="{{ route('products.update', ['offer' => $item->id]) }}" method="post">
+                <form class="editForm" action="{{ route('products.update', ['product' => $item->id]) }}" method="post">
                     @csrf
                     @method('PUT')
                     <div class="row text-start">

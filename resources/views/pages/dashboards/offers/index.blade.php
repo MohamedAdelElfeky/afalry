@@ -14,7 +14,7 @@
         </div>
         <div class="card-body py-3">
             <div class="table-responsive">
-                <table class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4">
+                <table class="table table-row-dashed table-sm text-center gs-0 gy-4">
                     <thead>
                         <tr class="fw-bold text-muted">
                             <th class="min-w-25px">#</th>
@@ -28,7 +28,7 @@
                     <tbody>
                         @foreach ($offers as $item)
                             <tr>
-                                <td>{{ $item->id }}</td>
+                                <td>{{ $loop->iteration }}</td>
                                 <td>{{ $item->product->name }}</td>
                                 <td>{{ __('lang.' . $item->type) }}</td>
                                 <td>{{ $item->value }}</td>
@@ -36,7 +36,7 @@
                                 <td>
                                     <div class="d-flex justify-content-end flexpca-shrink-0">
 
-                                        <a class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
+                                        <a class="btn btn-icon btn-bg-light btn-color-warning btn-sm me-1"
                                             data-bs-toggle="modal" data-bs-target="#modal_edit{{ $item->id }}"
                                             data-edit-id="{{ $item->id }}">
                                             <i class="ki-duotone ki-pencil fs-2">
@@ -48,7 +48,7 @@
                                         @include('pages/dashboards/offers/edit')
 
                                         <a data-delete-id="{{ $item->id }}"
-                                            class="btn btn-sm btn-icon btn-color-light btn-bg-danger btn-active-color-dark me-1 delete-btn">
+                                            class="btn btn-icon btn-bg-light btn-color-danger btn-sm me-1 delete-btn">
                                             <i class="ki-duotone ki-abstract-11 fs-2">
                                                 <span class="path1"></span>
                                                 <span class="path2"></span>
@@ -61,7 +61,39 @@
                         @endforeach
                     </tbody>
                 </table>
-                {{ $offers->links() }}
+                <div class="pagination justify-content-center">
+                    <nav role="navigation" aria-label="Pagination Navigation">
+                        <div class="flex items-center justify-between">
+
+                            {{-- <a href="{{ $offers->url(1) }}" class="btn btn-outline-secondary">First</a> --}}
+                            <a href="{{ $offers->previousPageUrl() }}" class="btn btn-outline-secondary">«
+                                {{ __('lang.previous') }}</a>
+
+                            @foreach ($offers->getUrlRange(1, $offers->lastPage()) as $page => $url)
+                                <a href="{{ $url }}"
+                                    class="btn btn-outline-secondary {{ $page == $offers->currentPage() ? 'active' : '' }}">{{ $loop->iteration }}</a>
+                            @endforeach
+
+                            <a href="{{ $offers->nextPageUrl() }}" class="btn btn-outline-secondary">
+                                {{ __('lang.next') }} »</a>
+                            {{-- <a href="{{ $offers->url($offers->lastPage()) }}"
+                                class="btn btn-outline-secondary">Last</a> --}}
+
+                            <div class="text-center">
+                                <p class="text-sm text-gray-700 leading-5">
+                                    {{ __('lang.showing') }}
+                                    <span class="font-medium">{{ $offers->firstItem() }}</span>
+                                    {{ __('lang.to') }}
+                                    <span class="font-medium">{{ $offers->lastItem() }}</span>
+                                    {{ __('lang.of') }}
+                                    <span class="font-medium">{{ $offers->total() }}</span>
+                                    {{ __('lang.results') }}
+                                </p>
+                            </div>
+
+                        </div>
+                    </nav>
+                </div>
             </div>
         </div>
     </div>

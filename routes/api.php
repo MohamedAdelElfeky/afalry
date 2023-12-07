@@ -2,11 +2,13 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\CityController;
+use App\Http\Controllers\Api\DealerController;
 use App\Http\Controllers\Api\LikeController;
 use App\Http\Controllers\Api\OfferController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\StatusController;
-use App\Http\Controllers\ِApi\PlanController;
+use App\Http\Controllers\Api\PlanController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -27,6 +29,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::put('/changePassword', [AuthController::class, 'changePassword']);
     Route::post('/addLike/{id}', [LikeController::class, 'toggleLike']);
+    Route::get('/getUserLikes', [ProductController::class, 'getUserLikes']);
 
 }); 
 Route::get('products', [ProductController::class, 'index']);
@@ -42,6 +45,10 @@ Route::get('offers', [OfferController::class, 'index']);
 Route::get('plans', [PlanController::class, 'index']);
 
 Route::get('statuses', [StatusController::class, 'index']);
+
+Route::get('dealers', [DealerController::class, 'index']);
+
+Route::get('cities', [CityController::class, 'index']);
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
