@@ -68,6 +68,15 @@
                     <span class="menu-title"> {{ __('lang.offers') }}</span>
                 </a>
             </div>
+
+            <div class="menu-item">
+                <a class="menu-link" href="{{ route('carts.index') }}">
+                    <span class="menu-bullet">
+                        <span class="menu-icon">{!! getIcon('element-11', 'fs-2') !!}</span>
+                    </span>
+                    <span class="menu-title"> {{ __('lang.carts') }}</span>
+                </a>
+            </div>
         </div>
     </div>
 </div>
