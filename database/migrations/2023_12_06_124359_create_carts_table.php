@@ -22,7 +22,7 @@ return new class extends Migration
             // Foreign keys
             $table->foreign('user_id')->references('id')->on('users')->nullable();
             $table->foreign('product_id')->references('id')->on('products')->nullable();
-            $table->foreign('order_id')->references('id')->on('orders')->onDelete('set null')->nullable();
+            $table->foreign('order_id')->references('id')->on('orders')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
