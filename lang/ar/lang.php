@@ -95,4 +95,9 @@ return [
     'no_attributes_available' => 'لا توجد صفات متاحة',
     'no_category_available' => 'لا يوجد قسم ',
     'sign_in' => 'تسجيل الدخول',
+    'user_name' => 'اسم المستخدم',
+    'count' => 'العدد',
+    'total_amount' => 'المبلغ الإجمالي',
+    'carts' => 'عربات التسوق',
+
 ];

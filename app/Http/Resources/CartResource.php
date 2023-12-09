@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -20,9 +21,14 @@ class CartResource extends JsonResource
             'product' => new ProductResource($this->whenLoaded('product')),
             'count' => $this->count,
             'price' => $this->price,
-            'order_id' => $this->order_id,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            // 'order_id' => $this->order_id,
+            'created_at' => Carbon::parse($this->created_at)->format('Y-m-d'),
         ];
+    }
+
+    
+    public  function formattedCreatedAt(): string
+    {
+        return Carbon::parse($this->created_at)->format('Y-m-d');
     }
 }
