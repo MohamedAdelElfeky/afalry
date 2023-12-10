@@ -51,11 +51,15 @@
                             <input type="text" name="yearly_price" class="form-control form-control-solid"
                                 value="{{ $item->yearly_price }}">
                         </div>
-
+                        <div class="mb-3">
+                            <label for="fs-6 fw-semibold mb-2">{{ __('lang.count_product') }}</label>
+                            <input type="number" name="count_product" class="form-control form-control-solid"
+                                value="{{ $item->count_product }}">
+                        </div>
                         <div class="mb-3">
                             <label for="if_free" class="fs-6 fw-semibold mb-2">{{ __('lang.if_free') }}</label>
-                            <input type="checkbox" name="if_free" class="form-check-input"
-                                @if ($item->if_free == 1) checked @endif value="{{ $item->if_free }}"
+                            <input type="checkbox" name="is_free" class="form-check-input"
+                                @if ($item->is_free == 1) checked @endif value="{{ $item->is_free }}"
                                 onchange="toggleCheckboxValue(this)">
 
                         </div>

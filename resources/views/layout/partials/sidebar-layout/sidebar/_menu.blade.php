@@ -2,7 +2,7 @@
     <div id="kt_app_sidebar_menu_wrapper" class="app-sidebar-wrapper hover-scroll-overlay-y my-5" data-kt-scroll="true"
         data-kt-scroll-activate="true" data-kt-scroll-height="auto"
         data-kt-scroll-dependencies="#kt_app_sidebar_logo, #kt_app_sidebar_footer"
-        data-kt-scroll-wrappers="#kt_app_sidebar_menu" data-kt-scroll-offset="5px" data-kt-scroll-save-state="true">
+        data-kt-scroll-wrappers="#kt_app_sidebar_menu" data-kt-scroll-offset="5px" data-kt-scroll-save-state="true">F
         <div class="menu menu-column menu-rounded menu-sub-indention px-3" id="#kt_app_sidebar_menu" data-kt-menu="true"
             data-kt-menu-expand="false">
             
@@ -75,6 +75,22 @@
                         <span class="menu-icon">{!! getIcon('element-11', 'fs-2') !!}</span>
                     </span>
                     <span class="menu-title"> {{ __('lang.carts') }}</span>
+                </a>
+            </div>
+            <div class="menu-item">
+                <a class="menu-link" href="{{ route('orders.index') }}">
+                    <span class="menu-bullet">
+                        <span class="menu-icon">{!! getIcon('element-11', 'fs-2') !!}</span>
+                    </span>
+                    <span class="menu-title"> {{ __('lang.orders') }}</span>
+                </a>
+            </div>
+            <div class="menu-item">
+                <a class="menu-link" href="{{ route('complaints.index') }}">
+                    <span class="menu-bullet">
+                        <span class="menu-icon">{!! getIcon('element-11', 'fs-2') !!}</span>
+                    </span>
+                    <span class="menu-title"> {{ __('lang.complaints') }}</span>
                 </a>
             </div>
         </div>

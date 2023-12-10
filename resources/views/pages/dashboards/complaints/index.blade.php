@@ -3,7 +3,7 @@
     <div class="card mb-5 mb-xl-8">
         <div class="card-header border-0 pt-5">
             <h3 class="card-title align-items-start flex-column">
-                <span class="card-label fw-bold fs-3 mb-1">{{ __('lang.orders') }}</span>
+                <span class="card-label fw-bold fs-3 mb-1">{{ __('lang.complaints') }}</span>
             </h3>
             <div class="card-toolbar" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover">
               
@@ -15,25 +15,21 @@
                     <thead>
                         <tr class="fw-bold text-muted">
                             <th class="min-w-25px">#</th>
-                            <th class="min-w-150px">{{ __('lang.user_name') }}</th>
-                            <th class="min-w-150px">{{ __('lang.product') }}</th>
-                            <th class="min-w-150px">{{ __('lang.count') }}</th>
-                            <th class="min-w-150px">{{ __('lang.price') }}</th>
-                            <th class="min-w-150px">{{ __('lang.total_amount') }}</th>
+                            <th class="min-w-150px">{{ __('lang.created_by') }}</th>
+                            <th class="min-w-150px">{{ __('lang.name') }}</th>
+                            <th class="min-w-150px">{{ __('lang.email') }}</th>
                             <th class="min-w-150px">{{ __('lang.created_at') }}</th>
                             <th class="min-w-100px text-end">{{ __('lang.actions') }}</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($orders as $item)
+                        @foreach ($complaints as $item)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $item->user->full_name }}</td>
-                                <td>{{ $item->product->name }}</td>
-                                <td>{{ $item->count }}</td>
-                                <td>{{ $item->price }}</td>
-                                <td>{{ $item->price * $item->count }}</td>
-                                <td>{{ $item->formattedCreatedAt() }}</td>
+                                <td>{{ $item->name }}</td>
+                                <td>{{ $item->email }}</td>
+                                <td>{{ $item->created_at }}</td>
 
                                 <td>
                                     <div class="d-flex justify-content-end flexpca-shrink-0">
@@ -52,32 +48,33 @@
                         @endforeach
                     </tbody>
                 </table>
+                
                 <div class="pagination justify-content-center">
                     <nav role="navigation" aria-label="Pagination Navigation">
                         <div class="flex items-center justify-between">
 
-                            {{-- <a href="{{ $orders->url(1) }}" class="btn btn-outline-secondary">First</a> --}}
-                            <a href="{{ $orders->previousPageUrl() }}" class="btn btn-outline-secondary">«
+                            {{-- <a href="{{ $complaints->url(1) }}" class="btn btn-outline-secondary">First</a> --}}
+                            <a href="{{ $complaints->previousPageUrl() }}" class="btn btn-outline-secondary">«
                                 {{ __('lang.previous') }}</a>
 
-                            @foreach ($orders->getUrlRange(1, $orders->lastPage()) as $page => $url)
+                            @foreach ($complaints->getUrlRange(1, $complaints->lastPage()) as $page => $url)
                                 <a href="{{ $url }}"
-                                    class="btn btn-outline-secondary {{ $page == $orders->currentPage() ? 'active' : '' }}">{{ $loop->iteration }}</a>
+                                    class="btn btn-outline-secondary {{ $page == $complaints->currentPage() ? 'active' : '' }}">{{ $loop->iteration }}</a>
                             @endforeach
 
-                            <a href="{{ $orders->nextPageUrl() }}" class="btn btn-outline-secondary">
+                            <a href="{{ $complaints->nextPageUrl() }}" class="btn btn-outline-secondary">
                                 {{ __('lang.next') }} »</a>
-                            {{-- <a href="{{ $orders->url($orders->lastPage()) }}"
+                            {{-- <a href="{{ $complaints->url($complaints->lastPage()) }}"
                                 class="btn btn-outline-secondary">Last</a> --}}
 
                             <div class="text-center">
                                 <p class="text-sm text-gray-700 leading-5">
                                     {{ __('lang.showing') }}
-                                    <span class="font-medium">{{ $orders->firstItem() }}</span>
+                                    <span class="font-medium">{{ $complaints->firstItem() }}</span>
                                     {{ __('lang.to') }}
-                                    <span class="font-medium">{{ $orders->lastItem() }}</span>
+                                    <span class="font-medium">{{ $complaints->lastItem() }}</span>
                                     {{ __('lang.of') }}
-                                    <span class="font-medium">{{ $orders->total() }}</span>
+                                    <span class="font-medium">{{ $complaints->total() }}</span>
                                     {{ __('lang.results') }}
                                 </p>
                             </div>
@@ -106,7 +103,7 @@
                     }).then((result) => {
                         if (result.isConfirmed) {
                             $.ajax({
-                                url: 'orders/' + deleteId,
+                                url: 'complaints/' + deleteId,
                                 type: 'DELETE',
                                 headers: {
                                     'X-CSRF-TOKEN': csrfToken

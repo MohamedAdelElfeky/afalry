@@ -51,4 +51,20 @@ class PlanController extends Controller
             return response()->json(['error' => 'Error deleting Plan'], 500);
         }
     }
+    public function updatePlanFree(Request $request)
+    {
+        $planId =  $request->input('plan_id');
+        // dd($planId);
+        $plan = Plan::find($planId);
+    
+        if (!$plan) {
+            return response()->json(['error' => 'Plan not found'], 404);
+        }
+    
+        $plan->is_free = $request->input('is_free');
+        $plan->save();
+    
+        return response()->json(['message' => 'Plan updated successfully']);
+    }
+    
 }

@@ -22,6 +22,19 @@
                             <label for="fs-6 fw-semibold mb-2">{{ __('lang.description') }}</label>
                             <textarea name="description" id="description" class="form-control form-control-solid"></textarea>
                         </div>
+
+                        <div class="mb-3">
+                            <label class="fs-6 fw-semibold mb-2" for="product_id">
+                                {{ __('lang.category') }}</label>
+                            <select class="form-select form-select-solid form-select-sm"
+                                data-dropdown-parent="#kt_modal_add" data-control="select2" data-hide-search="false"
+                                data-placeholder="{{ __('lang.select') }}" name="parent_id">
+                                <option value="">{{ __('lang.select') }}</option>
+                                @foreach ($parentCategories as $category)
+                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
                     <div class="text-end">
                         <button type="submit" class="btn btn-primary">{{ __('lang.new') }}</button>

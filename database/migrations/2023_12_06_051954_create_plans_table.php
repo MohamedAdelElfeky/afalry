@@ -24,7 +24,8 @@ return new class extends Migration
             $table->integer('days')->nullable();
             $table->decimal('monthly_price', 10, 2)->nullable();
             $table->decimal('yearly_price', 10, 2)->nullable();
-            $table->boolean('if_free')->default(false);
+            $table->boolean('is_free')->default(false);
+            $table->integer('count_product')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

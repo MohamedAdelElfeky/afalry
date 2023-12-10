@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+
 /**
  * create br eng mohamed Adel Elfeky 
  * email : mohamedelfeky1995@gmail.com 
@@ -19,6 +20,7 @@ class Category extends Model
     protected $fillable = [
         'name',
         'description',
+        'parent_id',
     ];
     public function products()
     {
@@ -28,4 +30,8 @@ class Category extends Model
     {
         return $this->morphMany(Image::class, 'imageable');
     }
+    public function parent()
+    {
+        return $this->belongsTo(Category::class, 'parent_id');
+    }   
 }

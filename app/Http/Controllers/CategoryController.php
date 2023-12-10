@@ -17,8 +17,10 @@ class CategoryController extends Controller
    {
       $paginate = \env('PAGINATE', 25);
       $categories = Category::paginate($paginate);
+      $parentCategories = Category::whereNull('parent_id')->get();
       return view('pages.dashboards.categories.index', [
          'categories' => CategoryResource::collection($categories),
+         'parentCategories' => CategoryResource::collection($parentCategories),
       ]);
    }
 

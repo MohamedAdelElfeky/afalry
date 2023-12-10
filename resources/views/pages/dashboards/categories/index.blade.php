@@ -20,6 +20,7 @@
                             <th class="min-w-25px">#</th>
                             <th class="min-w-150px">{{ __('lang.name') }}</th>
                             <th class="min-w-150px">{{ __('lang.description') }}</th>
+                            <th class="min-w-150px">{{ __('lang.main_category') }}</th>
                             <th class="min-w-100px text-end">{{ __('lang.actions') }}</th>
                         </tr>
                     </thead>
@@ -29,6 +30,7 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $item->name }}</td>
                                 <td>{{ $item->description }}</td>
+                                <td>{{ $item->parent ? $item->parent->name : ' ' }}</td>
                                 <td>
                                     <div class="d-flex justify-content-end flexpca-shrink-0">
 

@@ -6,6 +6,11 @@ use App\Http\Resources\CartResource;
 use App\Models\Cart;
 use Illuminate\Http\Request;
 
+/**
+ * create br eng mohamed Adel Elfeky 
+ * email : mohamedelfeky1995@gmail.com 
+ * phone : +201010152694
+ */
 class CartController extends Controller
 {
     public function index()

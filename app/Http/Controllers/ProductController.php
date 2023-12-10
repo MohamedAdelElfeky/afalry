@@ -78,4 +78,19 @@ class ProductController extends Controller
             return response()->json(['error' => 'Error deleting Product'], 500);
         }
     }
+
+    public function updateProductStatus(Request $request)
+    {
+        $productId =  $request->input('product_id');
+        $product = Product::find($productId);
+        
+        if (!$product) {
+            return response()->json(['error' => 'Product not found'], 404);
+        }
+    
+        $product->status = $request->input('status');
+        $product->save();
+    
+        return response()->json(['message' => 'Product updated successfully']);
+    }
 }

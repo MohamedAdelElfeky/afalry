@@ -99,5 +99,10 @@ return [
     'count' => 'العدد',
     'total_amount' => 'المبلغ الإجمالي',
     'carts' => 'عربات التسوق',
-
+    'main_category' => ' القسم الرئيسي',
+    'count_product' => 'عدد المنتجات',
+    'complaints' => 'الشكاوي',
+    'created_by' => 'تم إنشاءه بواسطة',
+    'email' => 'البريد الإلكتروني',
+    'orders' => 'طلبات',
 ];

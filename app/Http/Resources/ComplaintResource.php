@@ -10,8 +10,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * email : mohamedelfeky1995@gmail.com 
  * phone : +201010152694
  */
-
-class CategoryResource extends JsonResource
+class ComplaintResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -22,10 +21,11 @@ class CategoryResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'user_id' => new UserResource($this->whenLoaded('user')),
             'name' => $this->name,
-            'description' => $this->description,
-            'images' => $this->images ? ImageResource::collection($this->images) : null,
-            'parent' => $this->parent ? $this->parent->name : null,
+            'email' => $this->email,
+            'complaints' => $this->complaints,
+            'created_at' => $this->created_at->format('Y-m-d'),
         ];
     }
 }

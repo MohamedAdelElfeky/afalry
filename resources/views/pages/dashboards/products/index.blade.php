@@ -49,11 +49,12 @@
                                     @endif
                                 </td>
                                 <td>
-                                    @if ($item->status == 'active')
-                                        <span class="btn btn-sm btn-success w-75px">{{ __('lang.active') }}</span>
-                                    @else
-                                        <span class="btn btn-sm btn-danger w-75px">{{ __('lang.inactive') }}</span>
-                                    @endif
+                                    <!-- Toggle Switch -->
+                                    <div class="form-check form-switch">
+                                        <input type="checkbox" class="form-check-input status-toggle"
+                                            id="toggleStatus{{ $item->status }}" data-product-id="{{ $item->id }}"
+                                            {{ $item->status == 'active' ? 'checked' : '' }}>
+                                    </div>
                                 </td>
 
                                 <td>
@@ -272,6 +273,44 @@
                                 }
                             });
                         }
+                    });
+                });
+            });
+
+
+            $(document).ready(function() {
+                // Attach a click event listener to the toggle switch
+                $('.status-toggle').on('change', function() {
+                    const productId = $(this).data('product-id');
+                    const isChecked = $(this).prop('checked');
+                    const status = isChecked ? 'active' : 'inactive';
+
+                    // Send an AJAX request to update the status
+                    $.ajax({
+                        url: '{{ route('update.product.status') }}',
+                        method: 'POST',
+                        data: {
+                            product_id: productId,
+                            status: status,
+                            _token: '{{ csrf_token() }}',
+                        },
+                        success: function(response) {
+                            console.log(response);
+
+                            Swal.fire({
+                                title: 'Success!',
+                                text: 'Product updated successfully',
+                                icon: 'success',
+                            });
+                        },
+                        error: function(error) {
+                            Swal.fire({
+                                title: 'Error!',
+                                text: 'Failed to update Product',
+                                icon: 'error',
+                            });
+                            console.error(error);
+                        },
                     });
                 });
             });

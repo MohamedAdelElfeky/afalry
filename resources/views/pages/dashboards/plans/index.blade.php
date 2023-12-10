@@ -23,6 +23,7 @@
                             <th class="min-w-150px">{{ __('lang.days') }}</th>
                             <th class="min-w-150px">{{ __('lang.monthly_price') }}</th>
                             <th class="min-w-150px">{{ __('lang.yearly_price') }}</th>
+                            <th class="min-w-150px">{{ __('lang.count_product') }}</th>
                             <th class="min-w-150px">{{ __('lang.if_free') }}</th>
                             <th class="min-w-100px text-end">{{ __('lang.actions') }}</th>
                         </tr>
@@ -36,12 +37,14 @@
                                 <td>{{ $item->days }}</td>
                                 <td>{{ $item->monthly_price }}</td>
                                 <td>{{ $item->yearly_price }}</td>
+                                <td>{{ $item->count_product }}</td>
                                 <td>
-                                    @if ($item->if_free == 0)
-                                        <span class="btn btn-sm btn-danger w-75px">{{ __('lang.no') }}</span>
-                                    @elseif ($item->if_free == 1)
-                                        <span class="btn btn-sm btn-success w-75px">{{ __('lang.yes') }}</span>
-                                    @endif
+                                    <!-- Toggle Switch -->
+                                    <div class="form-check form-switch">
+                                        <input type="checkbox" class="form-check-input status-toggle"
+                                            id="toggleStatus{{ $item->is_free }}" data-plan-id="{{ $item->id }}"
+                                            {{ $item->is_free == 1 ? 'checked' : '' }}>
+                                    </div>
                                 </td>
                                 <td>
                                     <div class="d-flex justify-content-end flexpca-shrink-0">
@@ -71,6 +74,7 @@
                         @endforeach
                     </tbody>
                 </table>
+
                 <div class="pagination justify-content-center">
                     <nav role="navigation" aria-label="Pagination Navigation">
                         <div class="flex items-center justify-between">
@@ -104,6 +108,7 @@
                         </div>
                     </nav>
                 </div>
+
             </div>
         </div>
     </div>
@@ -201,6 +206,43 @@
                                 }
                             });
                         }
+                    });
+                });
+            });
+
+            $(document).ready(function() {
+                // Attach a click event listener to the toggle switch
+                $('.status-toggle').on('change', function() {
+                    const planId = $(this).data('plan-id');
+                    const isChecked = $(this).prop('checked');
+                    const isFree = isChecked ? '1' : '0';
+
+                    // Send an AJAX request to update the status
+                    $.ajax({
+                        url: '{{ route('update.plan.free') }}',
+                        method: 'POST',
+                        data: {
+                            plan_id: planId,
+                            is_free: isFree,
+                            _token: '{{ csrf_token() }}',
+                        },
+                        success: function(response) {
+                            console.log(response);
+
+                            Swal.fire({
+                                title: 'Success!',
+                                text: 'Plan updated successfully',
+                                icon: 'success',
+                            });
+                        },
+                        error: function(error) {
+                            Swal.fire({
+                                title: 'Error!',
+                                text: 'Failed to update plan',
+                                icon: 'error',
+                            });
+                            console.error(error);
+                        },
                     });
                 });
             });
