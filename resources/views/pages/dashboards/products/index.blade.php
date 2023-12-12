@@ -11,9 +11,9 @@
                         <i class="fas fa-sync"></i>{{ __('lang.create_new_product_sync') }}
                     </button>
                 </form>
-                <a class="btn btn-sm btn-light btn-active-primary m-1" data-bs-toggle="modal"
+                {{-- <a class="btn btn-sm btn-light btn-active-primary m-1" data-bs-toggle="modal"
                     data-bs-target="#kt_modal_add">
-                    <i class="ki-duotone ki-plus fs-2"></i>{{ __('lang.create_new_product') }}</a>
+                    <i class="ki-duotone ki-plus fs-2"></i>{{ __('lang.create_new_product') }}</a> --}}
             </div>
         </div>
         <div class="card-body py-3">
@@ -80,7 +80,7 @@
                                 <td>
                                     <div class="d-flex justify-content-end flexpca-shrink-0">
 
-                                        <a class="btn btn-icon btn-bg-light btn-color-warning btn-sm me-1"
+                                        {{-- <a class="btn btn-icon btn-bg-light btn-color-warning btn-sm me-1"
                                             data-bs-toggle="modal" data-bs-target="#modal_edit{{ $item->id }}"
                                             data-edit-id="{{ $item->id }}">
                                             <i class="ki-duotone ki-pencil fs-2">
@@ -89,7 +89,7 @@
                                             </i>
                                         </a>
 
-                                        @include('pages/dashboards/products/edit')
+                                        @include('pages/dashboards/products/edit') --}}
 
                                         <a data-delete-id="{{ $item->id }}"
                                             class="btn btn-icon btn-bg-light btn-color-danger btn-sm me-1 delete-btn">

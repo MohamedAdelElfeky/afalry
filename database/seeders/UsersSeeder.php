@@ -17,7 +17,6 @@ class UsersSeeder extends Seeder
     public function run(Generator $faker)
     {
         User::create([
-            'username'              => $faker->name,
             'full_name'              => $faker->name,
             'email'             => 'demo@demo.com',
             'phone'             => '01010152694',
@@ -27,7 +26,6 @@ class UsersSeeder extends Seeder
         ]);
 
         User::create([
-            'username'              => $faker->name,
             'full_name'              => $faker->name,
             'email'             => 'admin@demo.com',
             'phone'             => '01010152695',
