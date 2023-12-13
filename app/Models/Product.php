@@ -27,8 +27,11 @@ class Product extends Model
         'status',
         'type_rate',
         'value_rate',
+        'plans',
     ];
-
+    protected $casts = [
+        'plans' => 'array',
+    ];
     public function productAttributes()
     {
         return $this->hasMany(ProductAttribute::class, 'product_id');
@@ -47,7 +50,7 @@ class Product extends Model
         return $this->belongsTo(Category::class);
     }
 
-     public function carts()
+    public function carts()
     {
         return $this->belongsToMany(Cart::class);
     }

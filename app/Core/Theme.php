@@ -12,7 +12,7 @@ class Theme
     public static $modeSwitchEnabled = false;
     public static $modeDefault = 'light';
 
-    public static $direction = 'ltr';
+    public static $direction = 'rtl';
 
     public static $htmlAttributes = [];
     public static $htmlClasses = [];

@@ -11,9 +11,9 @@
                         <i class="fas fa-sync"></i>{{ __('lang.create_new_product_sync') }}
                     </button>
                 </form>
-                {{-- <a class="btn btn-sm btn-light btn-active-primary m-1" data-bs-toggle="modal"
+                <a class="btn btn-sm btn-light btn-active-primary m-1" data-bs-toggle="modal"
                     data-bs-target="#kt_modal_add">
-                    <i class="ki-duotone ki-plus fs-2"></i>{{ __('lang.create_new_product') }}</a> --}}
+                    <i class="ki-duotone ki-plus fs-2"></i>{{ __('lang.create_new_product') }}</a>
             </div>
         </div>
         <div class="card-body py-3">
@@ -27,7 +27,8 @@
                             <th class="min-w-150px">{{ __('lang.price') }}</th>
                             <th class="min-w-150px">{{ __('lang.balance') }}</th>
                             <th class="min-w-150px">{{ __('lang.category') }}</th>
-                            <th class="min-w-150px">{{ __('lang.status') }}</th>
+                            <th class="min-w-70px">{{ __('lang.status') }}</th>
+                            <th class="min-w-150px">{{ __('lang.plans') }}</th>
                             <th class="min-w-150px">{{ __('lang.photo') }}</th>
                             <th class="min-w-150px">{{ __('lang.product_attributes') }}</th>
                             <th class="min-w-100px text-end">{{ __('lang.actions') }}</th>
@@ -48,13 +49,31 @@
                                         {{ __('lang.no_category_available') }}
                                     @endif
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     <!-- Toggle Switch -->
                                     <div class="form-check form-switch">
                                         <input type="checkbox" class="form-check-input status-toggle"
                                             id="toggleStatus{{ $item->status }}" data-product-id="{{ $item->id }}"
                                             {{ $item->status == 'active' ? 'checked' : '' }}>
                                     </div>
+                                </td>
+
+                                <td>
+                                    @if (!empty($item->plans))
+                                        @foreach ($item->plans as $planId)
+                                            @php
+                                                $plan = \App\Models\Plan::find($planId);
+                                            @endphp
+
+                                            @if ($plan)
+                                                {{ $plan->name }} <br>
+                                            @else
+                                                {{ __('lang.unknown_plan') }} <br>
+                                            @endif
+                                        @endforeach
+                                    @else
+                                        {{ __('lang.no_plans') }}
+                                    @endif
                                 </td>
 
                                 <td>
@@ -67,6 +86,7 @@
                                         {{ __('lang.no_images') }}
                                     @endif
                                 </td>
+
                                 <td>
                                     @if ($item->productAttributes->isNotEmpty())
                                         @foreach ($item->productAttributes as $attribute)
@@ -80,7 +100,7 @@
                                 <td>
                                     <div class="d-flex justify-content-end flexpca-shrink-0">
 
-                                        {{-- <a class="btn btn-icon btn-bg-light btn-color-warning btn-sm me-1"
+                                        <a class="btn btn-icon btn-bg-light btn-color-warning btn-sm me-1"
                                             data-bs-toggle="modal" data-bs-target="#modal_edit{{ $item->id }}"
                                             data-edit-id="{{ $item->id }}">
                                             <i class="ki-duotone ki-pencil fs-2">
@@ -89,7 +109,7 @@
                                             </i>
                                         </a>
 
-                                        @include('pages/dashboards/products/edit') --}}
+                                        @include('pages/dashboards/products/edit')
 
                                         <a data-delete-id="{{ $item->id }}"
                                             class="btn btn-icon btn-bg-light btn-color-danger btn-sm me-1 delete-btn">
@@ -314,6 +334,21 @@
                     });
                 });
             });
+            //  add Row In add product
+            $(document).ready(function() {
+                $("#addFieldButton").click(function() {
+                    var newRow = $("#productAttributes table tbody tr:last").clone();
+                    newRow.find('input').val('');
+                    $("#productAttributes table tbody").append(newRow);
+                });
+                $("#productAttributes").on("click", ".remove-button", function() {
+                    if ($("#productAttributes table tbody tr").length > 1) {
+                        $(this).closest("tr").remove();
+                    }
+                });
+            });
+
+            
         </script>
     @endsection
 </x-default-layout>
