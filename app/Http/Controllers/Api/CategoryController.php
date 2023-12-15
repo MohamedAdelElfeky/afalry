@@ -16,10 +16,18 @@ use Illuminate\Http\Request;
  */
 class CategoryController extends Controller
 {
-    
-    public function index()
+
+    public function index(Request $request)
     {
-        $categories = Category::all();
+        // dd($request);
+        $type = $request->type;
+        if ($type == 'parent') {
+            $categories = Category::whereNull('parent_id')->get();
+        } elseif ($type == 'child') {
+            $categories = Category::whereNotNull('parent_id')->get();
+        } else {
+            $categories = Category::all();
+        }
         if ($categories->isEmpty()) {
             return response()->json(['message' => 'No Categories found'], 200);
         }
@@ -54,5 +62,4 @@ class CategoryController extends Controller
             return response()->json(['error' => 'Category not found'], 404);
         }
     }
-
 }

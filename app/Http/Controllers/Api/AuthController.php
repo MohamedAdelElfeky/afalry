@@ -31,6 +31,8 @@ class AuthController extends Controller
             'password' => 'required|string|min:6|confirmed',
             'avatar' => 'nullable|string',
             'sex' => 'nullable',
+            'questions' => 'nullable|array',
+            'categories' => 'nullable|array',
         ], [
             'email.required' => __('validation.email.required'),
             'email.email' => __('validation.email.email'),
@@ -54,13 +56,15 @@ class AuthController extends Controller
 
         // Create the user
         $user = User::create([
-            'username' => $request->input('username'),
+            'nationality' => $request->input('nationality'),
             'full_name' => $request->input('full_name'),
             'email' => $request->input('email'),
             'phone' => $request->input('phone'),
             'key_phone' => $request->input('key_phone'),
             'password' => bcrypt($request->input('password')),
             'sex' => $request->input('sex'),
+            'questions' => $request->input('questions'),
+            'categories' => $request->input('categories'),
             'avatar' => $imagePathAvatar,
         ]);
 

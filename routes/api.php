@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\OfferController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\StatusController;
 use App\Http\Controllers\Api\PlanController;
+use App\Http\Controllers\Api\QuestionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -50,6 +51,7 @@ Route::get('dealers', [DealerController::class, 'index']);
 
 Route::get('cities', [CityController::class, 'index']);
 
+Route::get('questions', [QuestionController::class, 'index']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

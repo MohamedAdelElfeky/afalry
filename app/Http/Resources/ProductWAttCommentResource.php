@@ -4,6 +4,8 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Auth;
+
 /**
  * create br eng mohamed Adel Elfeky 
  * email : mohamedelfeky1995@gmail.com 

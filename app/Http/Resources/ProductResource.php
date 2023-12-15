@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * create br eng mohamed Adel Elfeky 
@@ -35,6 +36,8 @@ class ProductResource extends JsonResource
             'images' => $this->images ? ImageResource::collection($this->images) : null,
             'product_attribute' =>  $this->productAttributes ? ProductAttributeResource::collection($this->productAttributes) : null,
             'comment' => $this->comments ? CommentResource::collection($this->comments) : null,
+            'like' => $this->likes->where('user_id', Auth::id())->where('likable_id', $this->id)->count() > 0,
+
         ];
     }
 }

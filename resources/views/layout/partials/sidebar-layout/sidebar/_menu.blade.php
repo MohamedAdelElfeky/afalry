@@ -5,7 +5,7 @@
         data-kt-scroll-wrappers="#kt_app_sidebar_menu" data-kt-scroll-offset="5px" data-kt-scroll-save-state="true">F
         <div class="menu menu-column menu-rounded menu-sub-indention px-3" id="#kt_app_sidebar_menu" data-kt-menu="true"
             data-kt-menu-expand="false">
-            
+
             <div class="menu-item">
                 <a class="menu-link" href="{{ route('categories.index') }}">
                     <span class="menu-bullet">
@@ -59,7 +59,7 @@
                     <span class="menu-title"> {{ __('lang.plans') }}</span>
                 </a>
             </div>
-            
+
             <div class="menu-item">
                 <a class="menu-link" href="{{ route('offers.index') }}">
                     <span class="menu-bullet">
@@ -91,6 +91,14 @@
                         <span class="menu-icon">{!! getIcon('directbox-default', 'fs-2') !!}</span>
                     </span>
                     <span class="menu-title"> {{ __('lang.complaints') }}</span>
+                </a>
+            </div>
+            <div class="menu-item">
+                <a class="menu-link" href="{{ route('questions.index') }}">
+                    <span class="menu-bullet">
+                        <span class="menu-icon">{!! getIcon('question', 'fs-2') !!}</span>
+                    </span>
+                    <span class="menu-title"> {{ __('lang.questions') }}</span>
                 </a>
             </div>
         </div>

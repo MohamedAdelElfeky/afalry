@@ -23,6 +23,7 @@ return new class extends Migration
             $table->enum('sex', ['male', 'female'])->nullable();
             $table->string('nationality')->nullable();
             $table->json('categories')->nullable();
+            $table->json('questions')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('avatar')->nullable();
             $table->boolean('registration_confirmed')->default(false);

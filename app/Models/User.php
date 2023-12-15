@@ -33,6 +33,7 @@ class User extends Authenticatable
         'avatar',
         'sex',
         'categories',
+        'questions',
         'registration_confirmed',
         'type',
         'otp',
@@ -56,8 +57,11 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-    ];
+        'categories' => 'array',
+        'questions' => 'array',
 
+    ];
+   
     public function likes()
     {
         return $this->hasMany(Like::class, 'user_id');

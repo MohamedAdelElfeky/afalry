@@ -109,5 +109,8 @@ return [
     'delete' => 'حذف',
     'attribute' => 'صفات',
     'no_plans' => 'لا يوجد باقات ',
+    'count_ques' => 'رقم سؤال',
+    'questions' => 'أسئلة',
+    'question' => 'سؤال',
 
 ];

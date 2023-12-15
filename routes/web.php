@@ -17,6 +17,7 @@ use App\Http\Controllers\OfferController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\StatusController;
 use Illuminate\Support\Facades\Route;
 
@@ -41,6 +42,7 @@ Route::resource('offers', OfferController::class);
 Route::resource('orders', OrderController::class);
 Route::resource('carts', CartController::class);
 Route::resource('complaints', ComplaintController::class);
+Route::resource('questions', QuestionController::class);
 
 Route::post('updateProduct/status', [ProductController::class, 'updateProductStatus'])->name('update.product.status');
 
