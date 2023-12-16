@@ -112,5 +112,6 @@ return [
     'count_ques' => 'رقم سؤال',
     'questions' => 'أسئلة',
     'question' => 'سؤال',
+    'answer' => 'الاجابة',
 
 ];

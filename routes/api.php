@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\CityController;
 use App\Http\Controllers\Api\DealerController;
@@ -32,7 +33,13 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/addLike/{id}', [LikeController::class, 'toggleLike']);
     Route::get('/getUserLikes', [ProductController::class, 'getUserLikes']);
 
-}); 
+    Route::post('/cardStore', [CartController::class, 'store']);
+    Route::put('/cardUpdate', [CartController::class, 'update']);
+    Route::delete('/cardRemove', [CartController::class, 'destroy']);
+    Route::delete('/cardAllRemove', [CartController::class, 'destroyAll']);
+    Route::get('/cards', [CartController::class, 'index']);
+
+});
 Route::get('products', [ProductController::class, 'index']);
 Route::get('products/{id}', [ProductController::class, 'show']);
 

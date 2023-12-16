@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('product_id')->nullable();
-            $table->integer('count');
-            $table->integer('price');
+            $table->decimal('quantity', 8, 2)->nullable();
+            $table->decimal('price', 8, 2)->nullable();
             // $table->unsignedBigInteger('order_id')->nullable();
 
             // Foreign keys

@@ -30,9 +30,9 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $item->user->full_name }}</td>
                                 <td>{{ $item->product->name }}</td>
-                                <td>{{ $item->count }}</td>
+                                <td>{{ $item->quantity }}</td>
                                 <td>{{ $item->price }}</td>
-                                <td>{{ $item->price * $item->count }}</td>
+                                <td>{{ $item->price * $item->quantity }}</td>
                                 <td>{{ $item->formattedCreatedAt() }}</td>
 
                                 <td>

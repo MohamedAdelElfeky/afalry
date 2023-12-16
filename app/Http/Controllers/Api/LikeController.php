@@ -15,7 +15,7 @@ class LikeController extends Controller
         $modelClass = 'App\Models\Product';
         $model = $modelClass::find($id);
         if (!$model) {
-            return response()->json(['message' => 'النموذج غير موجود'], 404);
+            return response()->json(['message' => 'المنتج غير موجود'], 404);
         }
         $existingLike = $user->likes()->where('likable_type', $modelClass)
             ->where('likable_id', $id)

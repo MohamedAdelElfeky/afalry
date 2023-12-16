@@ -22,6 +22,7 @@ class QuestionController extends Controller
         $request->validate([
             'count' => 'nullable',
             'question' => 'nullable|string',
+            'answer' => 'nullable|array',
         ]);
 
         $question =  Question::create($request->all());

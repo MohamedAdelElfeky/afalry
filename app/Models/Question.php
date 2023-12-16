@@ -17,6 +17,10 @@ class Question extends Model
     use SoftDeletes;
     protected $fillable = [
         'question',
-        'count'
+        'count',
+        'answer'
+    ];
+    protected $casts = [
+        'answer' => 'array',
     ];
 }

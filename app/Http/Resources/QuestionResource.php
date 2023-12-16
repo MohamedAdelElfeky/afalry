@@ -17,6 +17,7 @@ class QuestionResource extends JsonResource
         return [
             'count_question' => $this->count,
             'question' => $this->question,
+            'answer' => $this->answer,
         ];
     }
 }

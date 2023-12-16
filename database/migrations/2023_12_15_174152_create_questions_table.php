@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('count')->nullable();
             $table->text('question')->nullable();
+            $table->json('answer')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

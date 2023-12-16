@@ -55,7 +55,7 @@ class AuthController extends Controller
         }
 
         // Create the user
-        $user = User::create([
+        User::create([
             'nationality' => $request->input('nationality'),
             'full_name' => $request->input('full_name'),
             'email' => $request->input('email'),
@@ -90,6 +90,7 @@ class AuthController extends Controller
         }
         $token = $user->createToken('authToken')->plainTextToken;
         return response()->json([
+            'message' => 'تم تسجيل الدخول بنجاح',
             'user' => new UserResource($user),
             'token' => $token,
         ], 201);
@@ -107,8 +108,6 @@ class AuthController extends Controller
 
         return response()->json(['message' => 'لا توجد جلسة نشطة'], 404);
     }
-
-
 
     public function changePassword(Request $request)
     {

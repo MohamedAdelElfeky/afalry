@@ -19,6 +19,7 @@
                         <tr class="fw-bold text-muted">
                             <th class="min-w-150px">{{ __('lang.count_ques') }}</th>
                             <th class="min-w-150px">{{ __('lang.question') }}</th>
+                            <th class="min-w-150px">{{ __('lang.answer') }}</th>
                             <th class="min-w-100px text-end">{{ __('lang.actions') }}</th>
                         </tr>
                     </thead>
@@ -27,6 +28,13 @@
                             <tr>
                                 <td>{{ $item->count }}</td>
                                 <td>{{ $item->question }}</td>
+                                <td class="text-center">
+                                    <ul>
+                                        @foreach ($item->answer ?? [] as $answer)
+                                            <li>{{ $answer }}</li>
+                                        @endforeach
+                                    </ul>
+                                </td>
                                 <td>
                                     <div class="d-flex justify-content-end flexpca-shrink-0">
 
@@ -185,6 +193,24 @@
                     });
                 });
             });
+
+            $(document).ready(function() {
+                $('#addInvoiceFieldButton').click(function() {
+                    var newField = $('#answer-container .input-group:first').clone();
+                    newField.find('input').val('');
+                    $('#answer-container').append(newField);
+                });
+
+                $('#answer-container').on('click', '.remove-button', function() {
+                    var inputGroups = $('#answer-container .input-group');
+                    if (inputGroups.length > 1) {
+                        $(this).closest('.input-group').remove();
+                    } else {
+                        // alert("You must have at least one answer field.");
+                    }
+                });
+            });
+          
         </script>
     @endsection
 </x-default-layout>
