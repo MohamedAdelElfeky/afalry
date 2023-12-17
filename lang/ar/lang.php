@@ -113,5 +113,7 @@ return [
     'questions' => 'أسئلة',
     'question' => 'سؤال',
     'answer' => 'الاجابة',
+    'category_id_is_required'=>'معرف القسم مطلوب',
+    'no_products_found_for_the_specified_category'=>'لم يتم العثور على منتجات للقسم المحددة',
 
 ];

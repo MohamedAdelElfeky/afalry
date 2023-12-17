@@ -21,6 +21,8 @@ class Product extends Model
         'product_erp',
         'name',
         'price',
+        'discount',
+        'type_discount',
         'balance',
         'category_id',
         'description',

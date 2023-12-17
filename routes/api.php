@@ -4,9 +4,11 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\CityController;
+use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\Api\DealerController;
 use App\Http\Controllers\Api\LikeController;
 use App\Http\Controllers\Api\OfferController;
+use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\StatusController;
 use App\Http\Controllers\Api\PlanController;
@@ -39,9 +41,15 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/cardAllRemove', [CartController::class, 'destroyAll']);
     Route::get('/cards', [CartController::class, 'index']);
 
+    Route::get('/orders', [OrderController::class, 'index']);
+    Route::post('/orderStore', [OrderController::class, 'store']);
+    Route::delete('/orderRemove/{order}', [OrderController::class, 'destroy']);
+
+    Route::post('/products/{productId}/comments', [CommentController::class, 'store']);
 });
 Route::get('products', [ProductController::class, 'index']);
 Route::get('products/{id}', [ProductController::class, 'show']);
+Route::get('productsByCategory', [ProductController::class, 'productsByCategory']);
 
 Route::get('categories', [CategoryController::class, 'index']);
 Route::get('categories/{id}', [CategoryController::class, 'show']);

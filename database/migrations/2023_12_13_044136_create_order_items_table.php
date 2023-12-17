@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('order_id');
             $table->unsignedBigInteger('product_id')->nullable();
-            $table->integer('quantity');
-            $table->decimal('price', 8, 2);
+            $table->decimal('quantity', 8, 2)->nullable();
+            $table->decimal('price', 8, 2)->nullable();
             $table->decimal('discount', 8, 2)->default(0.00);
-            
+
             $table->foreign('product_id')->references('id')->on('products')->nullable();
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
 

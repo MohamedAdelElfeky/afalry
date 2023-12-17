@@ -12,6 +12,7 @@ class Order extends Model
         'user_id',
         'customer_name',
         'city_id',
+        'city',
         'district',
         'address',
         'postal_code',
@@ -21,14 +22,15 @@ class Order extends Model
         'floor_no',
         'order_total',
         'total_profits',
-        'cart_data',
+        'status',
     ];
-    public function products()
-    {
-        return $this->belongsToMany(Product::class);
-    }
+  
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+    public function items()
+    {
+        return $this->hasMany(OrderItem::class);
     }
 }

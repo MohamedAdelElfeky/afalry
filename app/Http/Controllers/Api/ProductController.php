@@ -63,4 +63,25 @@ class ProductController extends Controller
             return response()->json(['data' => null]);
         }
     }
+
+    public function productsByCategory(Request $request)
+    {
+        $categoryId = $request->input('category_id');
+        // Check if category_id is provided
+        if (!$categoryId) {
+            return response()->json(['message' => __('lang.category_id_is_required')], 400);
+        }
+        // Retrieve products with the specified category
+        $products = Product::whereHas('category', function ($query) use ($categoryId) {
+            $query->where('id', $categoryId);
+        })->get();
+
+        // Check if products are found
+        if ($products->isEmpty()) {
+            return response()->json(['message' => __('lang.no_products_found_for_the_specified_category')], 404);
+        }
+
+        // Return the products in JSON format
+        return response()->json(ProductResource::collection($products), 200);
+    }
 }

@@ -18,10 +18,12 @@ class OrderItem extends Model
         'price',
         'discount',
     ];
-    public function service()
+
+    public function product()
     {
         return $this->belongsTo(Product::class)->withTrashed();
     }
+    
     public function order()
     {
         return $this->belongsTo(Order::class);

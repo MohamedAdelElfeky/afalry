@@ -11,19 +11,18 @@ use Illuminate\Support\Facades\Schema;
  */
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     * create br eng mohamed Adel Elfeky 
-     * email : mohamedelfeky1995@gmail.com 
-     * phone : +201010152694
-     */
+
     public function up(): void
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            $table->text('content');
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->text('content')->nullable();
+            $table->decimal('rate', 8, 2)->nullable();
             $table->unsignedBigInteger('commentable_id');
             $table->string('commentable_type');
+            $table->foreign('user_id')->references('id')->on('users')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

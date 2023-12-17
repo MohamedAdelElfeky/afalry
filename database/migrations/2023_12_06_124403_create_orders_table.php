@@ -18,19 +18,24 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
-            $table->string('customer_name');
-            $table->integer('city_id');
-            $table->string('district');
-            $table->string('address');
-            $table->string('postal_code');
-            $table->string('email');
-            $table->string('phone_number');
-            $table->string('extra_phone_number')->nullable();
-            $table->integer('floor_no')->nullable();
-            $table->integer('order_total');
-            $table->integer('total_profits');
-            $table->longText('cart_data');
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->string('customer_name')->nullable();
+            $table->unsignedBigInteger('city_id')->nullable();
+            $table->string('city')->nullable();
+            $table->string('district')->nullable();
+            $table->string('address')->nullable();
+            $table->string('postal_code')->nullable();
+            $table->string('email')->nullable();
+            $table->string('phone_number')->nullable();
+            $table->string('extra_phone_number')->nullable()->nullable();
+            $table->string('floor_no')->nullable();
+            $table->decimal('order_total', 8, 2)->nullable();
+            $table->decimal('total_profits', 8, 2)->nullable();
+            $table->enum('status', ['pending', 'accepted', 'rejected'])->default('pending');
+
+            $table->foreign('user_id')->references('id')->on('users')->nullable();
+            $table->foreign('city_id')->references('id')->on('cities')->nullable();
+
             $table->softDeletes();
             $table->timestamps();
         });

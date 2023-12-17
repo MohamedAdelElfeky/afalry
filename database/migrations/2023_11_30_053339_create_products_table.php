@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('name')->nullable()->comment('name get by api');
             $table->text('description')->nullable();
             $table->decimal('price', 8, 3)->nullable()->comment('price get by api');
+            $table->decimal('discount', 8, 3)->nullable();
+            $table->enum('type_discount', ['value', 'present'])->nullable();
             $table->decimal('balance', 8, 3)->nullable()->comment('Balance get by api');
             $table->unsignedBigInteger('category_id')->nullable();
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade')->nullable();
