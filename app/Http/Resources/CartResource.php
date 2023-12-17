@@ -19,7 +19,7 @@ class CartResource extends JsonResource
             'id' => $this->id,
             'user' => new UserResource($this->whenLoaded('user')),
             'product' => new ProductResource($this->whenLoaded('product')),
-            'count' => $this->count,
+            'quantity' => $this->quantity,
             'price' => $this->price,
             // 'order_id' => $this->order_id,
             'created_at' => Carbon::parse($this->created_at)->format('Y-m-d'),
