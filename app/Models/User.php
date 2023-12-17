@@ -61,7 +61,7 @@ class User extends Authenticatable
         'questions' => 'array',
 
     ];
-   
+
     public function likes()
     {
         return $this->hasMany(Like::class, 'user_id');

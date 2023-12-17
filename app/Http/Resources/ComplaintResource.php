@@ -21,10 +21,12 @@ class ComplaintResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'user_id' => new UserResource($this->whenLoaded('user')),
+            'user' => new UserResource($this->user),
             'name' => $this->name,
             'email' => $this->email,
-            'complaints' => $this->complaints,
+            'subject' => $this->subject,
+            'description' => $this->description,
+            'status' => $this->status,
             'created_at' => $this->created_at->format('Y-m-d'),
         ];
     }

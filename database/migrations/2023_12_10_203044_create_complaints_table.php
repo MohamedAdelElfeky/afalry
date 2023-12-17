@@ -21,7 +21,9 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('name');
             $table->string('email');
-            $table->text('complaints');
+            $table->string('subject');
+            $table->text('description');
+            $table->enum('status', ['pending', 'accepted', 'rejected'])->default('pending');
 
             // Foreign key constraint
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

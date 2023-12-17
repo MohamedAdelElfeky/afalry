@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * create br eng mohamed Adel Elfeky 
+ * email : mohamedelfeky1995@gmail.com 
+ * phone : +201010152694
+ */
 class OrderItem extends Model
 {
     use HasFactory;
@@ -23,7 +28,7 @@ class OrderItem extends Model
     {
         return $this->belongsTo(Product::class)->withTrashed();
     }
-    
+
     public function order()
     {
         return $this->belongsTo(Order::class);

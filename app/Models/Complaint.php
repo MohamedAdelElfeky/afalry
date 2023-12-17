@@ -15,7 +15,7 @@ class Complaint extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    protected $fillable = ['user_id', 'name', 'email', 'complaints'];
+    protected $fillable = ['user_id', 'name', 'email', 'subject', 'description', 'status'];
 
     public function user()
     {

@@ -101,6 +101,22 @@
                     <span class="menu-title"> {{ __('lang.questions') }}</span>
                 </a>
             </div>
+            <div class="menu-item">
+                <a class="menu-link" href="{{ route('payments.index') }}">
+                    <span class="menu-bullet">
+                        <span class="menu-icon">{!! getIcon('dollar', 'fs-2') !!}</span>
+                    </span>
+                    <span class="menu-title"> {{ __('lang.type_payments') }}</span>
+                </a>
+            </div>
+            <div class="menu-item">
+                <a class="menu-link" href="{{ route('reasons.index') }}">
+                    <span class="menu-bullet">
+                        <span class="menu-icon">{!! getIcon('note-2', 'fs-2') !!}</span>
+                    </span>
+                    <span class="menu-title"> {{ __('lang.reasons') }}</span>
+                </a>
+            </div>
         </div>
     </div>
 </div>

@@ -6,15 +6,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-/**
- * create br eng mohamed Adel Elfeky 
- * email : mohamedelfeky1995@gmail.com 
- * phone : +201010152694
- */
-class Dealer extends Model
+class Reason extends Model
 {
     use HasFactory;
     use SoftDeletes;
+    protected $fillable = ['reason_id', 'name'];
 
-    protected $fillable = ['branch_id', 'username'];
 }

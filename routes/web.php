@@ -15,9 +15,11 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DealerController;
 use App\Http\Controllers\OfferController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\ReasonController;
 use App\Http\Controllers\StatusController;
 use Illuminate\Support\Facades\Route;
 
@@ -43,6 +45,8 @@ Route::resource('orders', OrderController::class);
 Route::resource('carts', CartController::class);
 Route::resource('complaints', ComplaintController::class);
 Route::resource('questions', QuestionController::class);
+Route::resource('payments', PaymentController::class);
+Route::resource('reasons', ReasonController::class);
 
 Route::post('updateProduct/status', [ProductController::class, 'updateProductStatus'])->name('update.product.status');
 
@@ -52,6 +56,7 @@ Route::match(['get', 'post'], 'dealers_sync', [DealerController::class, 'sync'])
 Route::match(['get', 'post'], 'cities_sync', [CityController::class, 'sync'])->name('cities.sync.store');
 Route::match(['get', 'post'], 'status_sync', [StatusController::class, 'sync'])->name('status.sync.store');
 Route::match(['get', 'post'], 'status_sync', [StatusController::class, 'sync'])->name('status.sync.store');
+Route::match(['get', 'post'], 'reasons_sync', [ReasonController::class, 'sync'])->name('reasons.sync.store');
 Route::post('updatePlan/free', [PlanController::class, 'updatePlanFree'])->name('update.plan.free');
 
 Route::get('/', [DashboardController::class, 'index'])->middleware(['auth', 'verified']);
