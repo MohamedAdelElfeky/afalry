@@ -20,7 +20,10 @@ use App\Http\Controllers\PlanController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\ReasonController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\StatusController;
+use App\Http\Controllers\SubscriberController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,7 +39,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::resource('products', ProductController::class);
 Route::resource('dealers', DealerController::class);
-Route::resource('categories', CategoryController::class);
 Route::resource('cities', CityController::class);
 Route::resource('plans', PlanController::class);
 Route::resource('statuses', StatusController::class);
@@ -47,9 +49,21 @@ Route::resource('complaints', ComplaintController::class);
 Route::resource('questions', QuestionController::class);
 Route::resource('payments', PaymentController::class);
 Route::resource('reasons', ReasonController::class);
+Route::resource('subscribers', SubscriberController::class);
+
+Route::resource('categories', CategoryController::class)->only('store', 'destroy', 'update');
+
+Route::get('/categories/parent', [CategoryController::class, 'index'])->name('categories.index.parent');
+Route::get('/categories/child', [CategoryController::class, 'index'])->name('categories.index.child');
 
 Route::post('updateProduct/status', [ProductController::class, 'updateProductStatus'])->name('update.product.status');
+Route::middleware('role:admin')->get('/users', function () {
+    // ...
+});
+Route::resource('roles', RoleController::class);
 
+Route::get('/admins', [UsersController::class, 'admins'])->name('admins.index');
+Route::get('/users', [UsersController::class, 'users'])->name('users.index');
 
 Route::match(['get', 'post'], 'products_sync', [ProductController::class, 'sync'])->name('products.sync.store');
 Route::match(['get', 'post'], 'dealers_sync', [DealerController::class, 'sync'])->name('dealers.sync.store');
