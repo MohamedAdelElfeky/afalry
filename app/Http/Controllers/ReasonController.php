@@ -20,8 +20,7 @@ class ReasonController extends Controller
 
     public function sync()
     {
-        $response = Http::asForm()->get('https://fvtion.com/API/afirly/Reasons.php');
-        dd($response);
+        $response = Http::asForm()->get('https://fvtion.com/API/afirly/get/Reasons.php');
         if ($response->successful()) {
             $data = $response->json();
             foreach ($data as $item) {
