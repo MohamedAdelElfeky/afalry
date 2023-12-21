@@ -24,7 +24,7 @@
 
                         </thead>
                         <tbody>
-                            @foreach ($users as $user)
+                            {{-- @foreach ($users as $user)
                                 <tr>
                                     <td>{{ $user->first_name }}</td>
                                     <td>{{ $user->last_name }}</td>
@@ -76,7 +76,7 @@
                                         </button>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @endforeach --}}
                         </tbody>
                     </table>
                 </div>
@@ -85,36 +85,36 @@
     </div>
     @section('script')
         <script>
-            $(document).ready(function() {
-                $('.toggle-user-btn').click(function(event) {
-                    event.preventDefault();
+            // $(document).ready(function() {
+            //     $('.toggle-user-btn').click(function(event) {
+            //         event.preventDefault();
 
-                    const button = $(this);
-                    const userId = button.attr('data-user-id');
-                    const isActive = button.attr('data-user-active') === '1';
-                    const url = `toggle-user/${userId}`;
+            //         const button = $(this);
+            //         const userId = button.attr('data-user-id');
+            //         const isActive = button.attr('data-user-active') === '1';
+            //         const url = `toggle-user/${userId}`;
 
-                    // Send an AJAX request to the server
-                    $.ajax({
-                        url: url,
-                        type: 'POST',
-                        dataType: 'json',
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        }, // Include the CSRF token in the headers
-                        success: function(data) {
-                            if (data.success) {
-                                // Toggle the active status in the button data attribute
-                                button.attr('data-user-active', isActive ? '0' : '1');
-                                // Update button appearance if needed
-                            }
-                        },
-                        error: function(error) {
-                            console.error('An error occurred:', error);
-                        }
-                    });
-                });
-            });
+            //         // Send an AJAX request to the server
+            //         $.ajax({
+            //             url: url,
+            //             type: 'POST',
+            //             dataType: 'json',
+            //             headers: {
+            //                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            //             }, // Include the CSRF token in the headers
+            //             success: function(data) {
+            //                 if (data.success) {
+            //                     // Toggle the active status in the button data attribute
+            //                     button.attr('data-user-active', isActive ? '0' : '1');
+            //                     // Update button appearance if needed
+            //                 }
+            //             },
+            //             error: function(error) {
+            //                 console.error('An error occurred:', error);
+            //             }
+            //         });
+            //     });
+            // });
         </script>
     @endsection
 </x-default-layout>

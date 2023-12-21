@@ -29,7 +29,7 @@
 
                         </thead>
                         <tbody>
-                            @foreach ($users as $user)
+                            {{-- @foreach ($users as $user)
                                 <tr>
                                     <td>{{ $user->first_name }}</td>
                                     <td>{{ $user->last_name }}</td>
@@ -86,7 +86,7 @@
 
                                     </td>
                                 </tr>
-                            @endforeach
+                            @endforeach --}}
                         </tbody>
                     </table>
                 </div>
@@ -96,40 +96,40 @@
     @include('pages/dashboards/admin/_add')
     @section('script')
         <script>
-            $(document).ready(function() {
-                $('#adminForm').submit(function(e) {
-                    e.preventDefault();
-                    var formData = $(this).serialize();
-                    $.ajax({
-                        type: 'POST',
-                        url: 'admin/add-user',
-                        data: formData,
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        },
-                        success: function(response) {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'نجاح!',
-                                text: 'تمت إضافة المستخدم بنجاح.',
-                                showConfirmButton: false,
-                                timer: 1500
-                            }).then(function() {
-                                location.reload();
-                            });
-                        },
-                        error: function(error) {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'خطأ!',
-                                text: 'فشل إضافة المستخدم.',
-                                showConfirmButton: false,
-                                timer: 1500
-                            });
-                        }
-                    });
-                });
-            });
+            // $(document).ready(function() {
+            //     $('#adminForm').submit(function(e) {
+            //         e.preventDefault();
+            //         var formData = $(this).serialize();
+            //         $.ajax({
+            //             type: 'POST',
+            //             url: 'admin/add-user',
+            //             data: formData,
+            //             headers: {
+            //                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            //             },
+            //             success: function(response) {
+            //                 Swal.fire({
+            //                     icon: 'success',
+            //                     title: 'نجاح!',
+            //                     text: 'تمت إضافة المستخدم بنجاح.',
+            //                     showConfirmButton: false,
+            //                     timer: 1500
+            //                 }).then(function() {
+            //                     location.reload();
+            //                 });
+            //             },
+            //             error: function(error) {
+            //                 Swal.fire({
+            //                     icon: 'error',
+            //                     title: 'خطأ!',
+            //                     text: 'فشل إضافة المستخدم.',
+            //                     showConfirmButton: false,
+            //                     timer: 1500
+            //                 });
+            //             }
+            //         });
+            //     });
+            // });
 
             // $(document).ready(function() {
             //     $('.change-password-btn').click(function() {
@@ -174,48 +174,48 @@
             //     });
             // });
 
-            $(document).ready(function() {
-                $('#change-password-form').on('submit', function(e) {
-                    e.preventDefault();
+            // $(document).ready(function() {
+            //     $('#change-password-form').on('submit', function(e) {
+            //         e.preventDefault();
 
-                    $.ajax({
-                        type: 'POST',
-                        url: 'changePasswordByAdmin',
-                        data: $(this).serialize(),
-                        success: function(response) {
-                            $('#kt_modal_admin').modal('hide');
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'تم تغيير كلمة المرور بنجاح',
-                                showConfirmButton: false,
-                                timer: 1500 // Close the alert after 1.5 seconds
-                            });
-                        },
-                        error: function(xhr) {
-                            $('#kt_modal_admin').modal('hide');
-                            if (xhr.status === 404) {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'خطأ',
-                                    text: 'المستخدم غير موجود'
-                                });
-                            } else if (xhr.status === 400) {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'خطأ',
-                                    text: 'كلمة المرور القديمة غير صحيحة'
-                                });
-                            } else {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'خطأ',
-                                    text: 'حدث خطأ ما'
-                                });
-                            }
-                        }
-                    });
-                });
-            });
+            //         $.ajax({
+            //             type: 'POST',
+            //             url: 'changePasswordByAdmin',
+            //             data: $(this).serialize(),
+            //             success: function(response) {
+            //                 $('#kt_modal_admin').modal('hide');
+            //                 Swal.fire({
+            //                     icon: 'success',
+            //                     title: 'تم تغيير كلمة المرور بنجاح',
+            //                     showConfirmButton: false,
+            //                     timer: 1500 // Close the alert after 1.5 seconds
+            //                 });
+            //             },
+            //             error: function(xhr) {
+            //                 $('#kt_modal_admin').modal('hide');
+            //                 if (xhr.status === 404) {
+            //                     Swal.fire({
+            //                         icon: 'error',
+            //                         title: 'خطأ',
+            //                         text: 'المستخدم غير موجود'
+            //                     });
+            //                 } else if (xhr.status === 400) {
+            //                     Swal.fire({
+            //                         icon: 'error',
+            //                         title: 'خطأ',
+            //                         text: 'كلمة المرور القديمة غير صحيحة'
+            //                     });
+            //                 } else {
+            //                     Swal.fire({
+            //                         icon: 'error',
+            //                         title: 'خطأ',
+            //                         text: 'حدث خطأ ما'
+            //                     });
+            //                 }
+            //             }
+            //         });
+            //     });
+            // });
         </script>
     @endsection
 </x-default-layout>

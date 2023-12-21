@@ -129,4 +129,13 @@ return [
     'category_name' => 'اسم القسم',
     'discount' => 'الخصم',
     'type_discount' => 'نوع الخصم',
+    'add' => 'أضافة',
+    'update' => 'تعديل',
+    'show' => 'عرض',
+    'plan' => 'باقة',
+    'user' => 'المستخدم',
+    'start_date' => 'تاريخ البداية',
+    'payment_type' => 'طريقه الدفع',
+    'amount' => 'المدفوع',
+    'remind_end' => 'التذكره قبل',
 ];
