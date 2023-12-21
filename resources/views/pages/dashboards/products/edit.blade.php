@@ -89,7 +89,25 @@
                                 @endforeach
                             </select>
                         </div>
-
+                        <div class="col-md-4 fv-row">
+                            <label for="fs-6 fw-semibold mb-2">{{ __('lang.discount') }}</label>
+                            <input type="number" name="discount" class="form-control form-control-solid"
+                                value="{{ $item->discount }}" min="0">
+                        </div>
+                        <div class="mb-3">
+                            <label class="fs-6 fw-semibold mb-2">{{ __('lang.type_offer') }}</label>
+                            <select class="form-select form-select-solid form-select-sm"
+                                data-dropdown-parent="#modal_edit{{ $item->id }}" data-control="select2"
+                                data-hide-search="false" data-placeholder="{{ __('lang.select') }}"
+                                name="type_discount">
+                                <option value="">{{ __('lang.select') }}</option>
+                                <option value="value" {{ $item->type_discount === 'value' ? 'selected' : '' }}>
+                                    {{ __('lang.value') }}</option>
+                                <option value="present" {{ $item->type_discount === 'present' ? 'selected' : '' }}>
+                                    {{ __('lang.present') }}</option>
+                            </select>
+                            <span class="error-message text-danger"></span>
+                        </div>
                         <!-- Product Attributes -->
                         <div class="col-md-12 fv-row">
                             <label class="fs-6 fw-semibold mb-2">{{ __('lang.product_attributes') }}</label>
@@ -102,7 +120,7 @@
                                             <th>{{ __('lang.actions') }}</th>
                                         </tr>
                                     </thead>
-                                    <tbody>                                    
+                                    <tbody>
                                         @foreach ($item->productAttributes as $attribute)
                                             <tr>
                                                 <input type="hidden" name="product_attribute_id[]"
@@ -129,7 +147,8 @@
                                             <td></td>
                                             <td>
                                                 <button type="button" class="btn btn-primary form-control"
-                                                    id="editFieldButton_{{ $item->id }}" data-edit-code="{{ $item->id }}">
+                                                    id="editFieldButton_{{ $item->id }}"
+                                                    data-edit-code="{{ $item->id }}">
                                                     <i class="ki-duotone ki-plus fs-2"></i>
                                                 </button>
                                             </td>

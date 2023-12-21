@@ -26,6 +26,8 @@
                             <th class="min-w-150px">{{ __('lang.description') }}</th>
                             <th class="min-w-150px">{{ __('lang.price') }}</th>
                             <th class="min-w-150px">{{ __('lang.balance') }}</th>
+                            <th class="min-w-150px">{{ __('lang.type_discount') }}</th>
+                            <th class="min-w-150px">{{ __('lang.discount') }}</th>
                             <th class="min-w-150px">{{ __('lang.category') }}</th>
                             <th class="min-w-70px">{{ __('lang.status') }}</th>
                             <th class="min-w-150px">{{ __('lang.plans') }}</th>
@@ -42,6 +44,12 @@
                                 <td>{{ $item->description }}</td>
                                 <td>{{ $item->price }}</td>
                                 <td>{{ $item->balance }}</td>
+                                <td>
+                                    @if ($item->type_discount)
+                                        {{ __('lang.' . $item->type_discount) }}
+                                    @endif
+                                </td>
+                                <td>{{ $item->discount }}</td>
                                 <td>
                                     @if ($item->category)
                                         {{ $item->category->name }}

@@ -127,4 +127,6 @@ return [
     'child_categories' => 'الاقسام الفرعية',
     'no_children' => 'لا يوجد اقسام فرعية',
     'category_name' => 'اسم القسم',
+    'discount' => 'الخصم',
+    'type_discount' => 'نوع الخصم',
 ];

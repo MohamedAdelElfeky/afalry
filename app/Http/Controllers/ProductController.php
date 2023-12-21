@@ -91,11 +91,13 @@ class ProductController extends Controller
         // Handle product attributes
         if ($request->has('product_attribute')) {
             foreach ($request->input('product_attribute') as $key => $value) {
-                $productAttribute = new ProductAttribute([
-                    'attribute' => $value,
-                    'value' => $request->input('product_value')[$key],
-                ]);
-                $product->productAttributes()->save($productAttribute);
+                if ($value !== null) {
+                    $productAttribute = new ProductAttribute([
+                        'attribute' => $value,
+                        'value' => $request->input('product_value')[$key],
+                    ]);
+                    $product->productAttributes()->save($productAttribute);
+                }
             }
         }
 
@@ -145,7 +147,7 @@ class ProductController extends Controller
         }
 
         $product->productAttributes()->delete();
-        
+
         if ($request->has('product_attribute')) {
             foreach ($request->input('product_attribute') as $key => $value) {
                 $productAttribute = new ProductAttribute([

@@ -49,6 +49,24 @@
                         </div>
 
                         <div class="col-md-4 fv-row">
+                            <label for="fs-6 fw-semibold mb-2">{{ __('lang.discount') }}</label>
+                            <input type="number" name="discount" class="form-control form-control-solid">
+                        </div>
+
+                        <div class="col-md-4 fv-row">
+                            <label class="fs-6 fw-semibold mb-2">
+                                {{ __('lang.type_discount') }}
+                            </label>
+                            <select class="form-select form-select-solid form-select-sm"
+                                data-dropdown-parent="#kt_modal_add" data-control="select2" data-hide-search="false"
+                                data-placeholder="{{ __('lang.select') }}" name="type_discount">
+                                <option value="">{{ __('lang.select') }}</option>
+                                <option value="value">{{ __('lang.value') }}</option>
+                                <option value="present">{{ __('lang.present') }}</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-4 fv-row">
                             <label class="fs-6 fw-semibold mb-2" for="status">
                                 {{ __('lang.status') }}
                             </label>
