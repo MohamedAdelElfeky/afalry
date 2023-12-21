@@ -25,21 +25,24 @@
                             <label for="fs-6 fw-semibold mb-2">{{ __('lang.name') }}</label>
                             <textarea name="description" id="description" class="form-control form-control-solid">{{ $item->description }}</textarea>
                         </div>
-                        <div class="mb-3">
-                            <label class="fs-6 fw-semibold mb-2" for="product_id">
-                                {{ __('lang.category') }}</label>
-                            <select class="form-select form-select-solid form-select-sm"
-                                data-dropdown-parent="#modal_edit{{ $item->id }}" data-control="select2" data-hide-search="false"
-                                data-placeholder="{{ __('lang.select') }}" name="parent_id">
-                                <option value="">{{ __('lang.select') }}</option>
-                                @foreach ($parentCategories as $category)
-                                    <option value="{{ $category->id }}"
-                                        {{ $category->id == $item->parent_id ? 'selected' : '' }}>
-                                        {{ $category->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
+                        @if ($type == 'child')
+                            <div class="mb-3">
+                                <label class="fs-6 fw-semibold mb-2" for="product_id">
+                                    {{ __('lang.category') }}</label>
+                                <select class="form-select form-select-solid form-select-sm"
+                                    data-dropdown-parent="#modal_edit{{ $item->id }}" data-control="select2"
+                                    data-hide-search="false" data-placeholder="{{ __('lang.select') }}"
+                                    name="parent_id">
+                                    <option value="">{{ __('lang.select') }}</option>
+                                    @foreach ($parentCategories as $category)
+                                        <option value="{{ $category->id }}"
+                                            {{ $category->id == $item->parent_id ? 'selected' : '' }}>
+                                            {{ $category->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        @endif
                     </div>
                     <div class="text-end">
                         <button type="submit" class="btn btn-primary">{{ __('lang.save') }}</button>

@@ -1,14 +1,16 @@
 <div class="modal fade" id="kt_modal_add" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered mw-900px">
         <div class="modal-content">
-            <div class="modal-header pb-0 border-0 justify-content-end">
+            <div class="modal-header pb-0 border-0">
                 <h5 class="modal-title"> {{ __('lang.create_new_product') }} </h5>
+
                 <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal"><i
                         class="ki-duotone ki-cross fs-1">
                         <span class="path1"></span>
                         <span class="path2"></span>
                     </i>
                 </div>
+
             </div>
             <form id="createForm" action="{{ route('products.store') }}" method="post">
                 <div class="modal-body">

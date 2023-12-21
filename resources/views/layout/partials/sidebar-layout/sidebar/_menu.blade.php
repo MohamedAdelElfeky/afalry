@@ -18,14 +18,14 @@
                 <div class="menu-sub menu-sub-accordion">
 
                     <div class="menu-item">
-                        <a class="menu-link" href="{{ route('categories.index.parent') }}">
+                        <a class="menu-link" href="{{ route('categories.index', ['type' => 'parent']) }}">
                             <span class="menu-icon">{!! getIcon('scan-barcode', 'fs-2') !!}</span>
                             <span class="menu-title"> {{ __('lang.parent_categoies') }}</span>
                         </a>
                     </div>
 
                     <div class="menu-item">
-                        <a class="menu-link" href="{{ route('categories.index.child') }}">
+                        <a class="menu-link" href="{{ route('categories.index', ['type' => 'child']) }}">
                             <span class="menu-icon">{!! getIcon('add-item', 'fs-2') !!}</span>
                             <span class="menu-title"> {{ __('lang.child_categories') }}</span>
                         </a>

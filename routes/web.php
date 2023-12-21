@@ -53,8 +53,7 @@ Route::resource('subscribers', SubscriberController::class);
 
 Route::resource('categories', CategoryController::class)->only('store', 'destroy', 'update');
 
-Route::get('/categories/parent', [CategoryController::class, 'index'])->name('categories.index.parent');
-Route::get('/categories/child', [CategoryController::class, 'index'])->name('categories.index.child');
+Route::get('/categories/{type}', [CategoryController::class, 'index'])->name('categories.index');
 
 Route::post('updateProduct/status', [ProductController::class, 'updateProductStatus'])->name('update.product.status');
 Route::middleware('role:admin')->get('/users', function () {

@@ -13,29 +13,53 @@
                 <form id="createForm" action="{{ route('categories.store') }}" method="post">
                     @csrf
                     <div class="row">
-                        <div class="mb-3">
-                            <label for="fs-6 fw-semibold mb-2">{{ __('lang.name') }}</label>
-                            <input type="text" name="name" class="form-control form-control-solid">
-                        </div>
+                        <input type="hidden" name="type" value="{{ $type }}">
+
+                        @if ($type == 'parent')
+                            <div class="mb-3">
+                                <label for="fs-6 fw-semibold mb-2">{{ __('lang.name') }}</label>
+                                <input type="text" name="name[]" class="form-control form-control-solid">
+                            </div>
+                        @endif
+
+                        @if ($type == 'child')
+                            <div class="mb-3">
+                                <label class="fs-6 fw-semibold mb-2">{{ __('lang.category_name') }}</label>
+                                <div id="name">
+                                    <div class="input-group mb-3">
+                                        <input type="text" name="name[]" class="form-control form-control-solid">
+                                        <div class="input-group-prepend">
+                                            <button type="button"
+                                                class="btn btn-danger remove-button py-3">{{ __('lang.delete') }}</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn btn-primary form-control"
+                                    id="addFieldButton">{{ __('lang.add_field') }}</button>
+                            </div>
+                        @endif
 
                         <div class="mb-3">
                             <label for="fs-6 fw-semibold mb-2">{{ __('lang.description') }}</label>
                             <textarea name="description" id="description" class="form-control form-control-solid"></textarea>
                         </div>
+                        @if ($type == 'child')
+                            <div class="mb-3">
+                                <label class="fs-6 fw-semibold mb-2">
+                                    {{ __('lang.category') }}</label>
+                                <select class="form-select form-select-solid form-select-sm"
+                                    data-dropdown-parent="#kt_modal_add" data-control="select2" data-hide-search="false"
+                                    data-placeholder="{{ __('lang.select') }}" name="parent_id">
+                                    <option value="">{{ __('lang.select') }}</option>
+                                    @foreach ($parentCategories as $category)
+                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        @endif
 
-                        <div class="mb-3">
-                            <label class="fs-6 fw-semibold mb-2" for="product_id">
-                                {{ __('lang.category') }}</label>
-                            <select class="form-select form-select-solid form-select-sm"
-                                data-dropdown-parent="#kt_modal_add" data-control="select2" data-hide-search="false"
-                                data-placeholder="{{ __('lang.select') }}" name="parent_id">
-                                <option value="">{{ __('lang.select') }}</option>
-                                @foreach ($parentCategories as $category)
-                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
                     </div>
+
                     <div class="text-end">
                         <button type="submit" class="btn btn-primary">{{ __('lang.new') }}</button>
                     </div>

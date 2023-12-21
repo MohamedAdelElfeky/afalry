@@ -3,7 +3,13 @@
     <div class="card mb-5 mb-xl-8">
         <div class="card-header border-0 pt-5">
             <h3 class="card-title align-items-start flex-column">
-                <span class="card-label fw-bold fs-3 mb-1">{{ __('lang.categories') }}</span>
+                <span class="card-label fw-bold fs-3 mb-1">
+                    @if ($type == 'parent')
+                        {{ __('lang.parent_categoies') }}
+                    @elseif ($type == 'parent')
+                        {{ __('lang.child_categories') }}
+                    @endif
+                </span>
             </h3>
             <div class="card-toolbar" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover"
                 title="{{ __('lang.add_new_category') }}">
@@ -20,7 +26,11 @@
                             <th class="min-w-25px">#</th>
                             <th class="min-w-150px">{{ __('lang.name') }}</th>
                             <th class="min-w-150px">{{ __('lang.description') }}</th>
-                            <th class="min-w-150px">{{ __('lang.main_category') }}</th>
+                            @if ($type == 'parent')
+                                <th class="min-w-150px">{{ __('lang.child_categories') }}</th>
+                            @elseif ($type == 'child')
+                                <th class="min-w-150px">{{ __('lang.main_category') }}</th>
+                            @endif
                             <th class="min-w-100px text-end">{{ __('lang.actions') }}</th>
                         </tr>
                     </thead>
@@ -30,7 +40,17 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $item->name }}</td>
                                 <td>{{ $item->description }}</td>
-                                <td>{{ $item->parent ? $item->parent->name : ' ' }}</td>
+                                @if ($type == 'parent')
+                                    <td>
+                                        @forelse  ($item->children as $child)
+                                            {{ $child->name }} <br>
+                                        @empty
+                                            {{ __('lang.no_children') }}
+                                        @endforelse
+                                    </td>
+                                @elseif ($type == 'child')
+                                    <td>{{ $item->parent ? $item->parent->name : ' ' }}</td>
+                                @endif
                                 <td>
                                     <div class="d-flex justify-content-end flexpca-shrink-0">
 
@@ -188,6 +208,20 @@
                             });
                         }
                     });
+                });
+            });
+
+            $(document).ready(function() {
+                // Add field button click event
+                $("#addFieldButton").click(function() {
+                    var newField = '<div class="input-group mb-3">' +
+                        '<input type="text" name="name[]" class="form-control form-control-solid">' +
+                        '<div class="input-group-prepend">' +
+                        '<button type="button" class="btn btn-danger remove-button py-3">{{ __('lang.delete') }}</button>' +
+                        '</div>' +
+                        '</div>';
+
+                    $("#name").append(newField);
                 });
             });
         </script>

@@ -102,7 +102,7 @@
                                             <th>{{ __('lang.actions') }}</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody>                                    
                                         @foreach ($item->productAttributes as $attribute)
                                             <tr>
                                                 <input type="hidden" name="product_attribute_id[]"
@@ -129,7 +129,7 @@
                                             <td></td>
                                             <td>
                                                 <button type="button" class="btn btn-primary form-control"
-                                                    id="editFieldButton_{{ $item->id }}">
+                                                    id="editFieldButton_{{ $item->id }}" data-edit-code="{{ $item->id }}">
                                                     <i class="ki-duotone ki-plus fs-2"></i>
                                                 </button>
                                             </td>
@@ -182,20 +182,3 @@
         </div>
     </div>
 </div>
-<script>
-    $(document).ready(function() {
-        $("#editFieldButton_{{ $item->id }}").click(function() {
-            var newRow = '<tr>' +
-                '<td><input type="text" name="product_attribute[]" class="form-control form-control-solid py-3"></td>' +
-                '<td><input type="text" name="product_value[]" class="form-control form-control-solid py-3"></td>' +
-                '<td><button type="button" class="btn btn-danger remove-button py-3"><i class="bi bi-trash fs-2"></i></button></td>' +
-                '</tr>';
-
-            $("#productAttributes_{{ $item->id }} tbody").append(newRow);
-        });
-
-        $("#productAttributes_{{ $item->id }}").on("click", ".remove-button", function() {
-            $(this).closest("tr").remove();
-        });
-    });
-</script>

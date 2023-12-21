@@ -13,25 +13,47 @@ use Illuminate\Http\Request;
  */
 class CategoryController extends Controller
 {
-   public function index()
+   public function index(Request $request)
    {
+      // dd($request->type);
+      $type = $request->type;
       $paginate = \env('PAGINATE', 25);
-      $categories = Category::paginate($paginate);
+      if ($type == 'parent') {
+         $categories = Category::whereNull('parent_id')->paginate($paginate);
+      } elseif ($type == 'child') {
+         $categories = Category::whereNotNull('parent_id')->paginate($paginate);
+      }
       $parentCategories = Category::whereNull('parent_id')->get();
       return view('pages.dashboards.categories.index', [
          'categories' => CategoryResource::collection($categories),
          'parentCategories' => CategoryResource::collection($parentCategories),
+         'type' => $type,
       ]);
    }
 
    public function store(Request $request)
    {
       $request->validate([
-         'name' => 'required|string|max:255',
+         'name' => 'required|array|max:255',
          'description' => 'nullable|string',
       ]);
-
-      $category =  Category::create($request->all());
+      $type = $request->type;
+      if ($type == 'parent') {
+         $category = Category::create([
+            'name' => $request->name[0],
+            'description' => $request->description,
+         ]);
+      } elseif ($type == 'child') {
+         $categories = [];
+         foreach ($request->name as $name) {
+            $categories[] = Category::create([
+               'name' => $name,
+               'description' => $request->description,
+               'parent_id' => $request->parent_id,
+            ]);
+         }
+         $category = $categories;
+      }
 
       return response()->json($category);
    }

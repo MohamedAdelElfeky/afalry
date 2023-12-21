@@ -334,6 +334,7 @@
                     });
                 });
             });
+
             //  add Row In add product
             $(document).ready(function() {
                 $("#addFieldButton").click(function() {
@@ -342,13 +343,31 @@
                     $("#productAttributes table tbody").append(newRow);
                 });
                 $("#productAttributes").on("click", ".remove-button", function() {
-                    if ($("#productAttributes table tbody tr").length > 1) {
+                    var rowCount = $("#productAttributes table tbody tr").length;
+                    if (rowCount > 1) {
                         $(this).closest("tr").remove();
                     }
                 });
             });
 
-            
+            $(document).ready(function() {
+                // Add Row
+                $('[data-edit-code]').on('click', function() {
+                    var editCode = $(this).data('edit-code');
+                    var newRow = '<tr>' +
+                        '<td><input type="text" name="product_attribute[]" class="form-control form-control-solid py-3"></td>' +
+                        '<td><input type="text" name="product_value[]" class="form-control form-control-solid py-3"></td>' +
+                        '<td><button type="button" class="btn btn-danger remove-button py-3"><i class="bi bi-trash fs-2"></i></button></td>' +
+                        '</tr>';
+
+                    $('#productAttributes_' + editCode + ' tbody').append(newRow);
+                });
+
+                // Remove Row
+                $(document).on('click', '.remove-button', function() {
+                    $(this).closest('tr').remove();
+                });
+            });
         </script>
     @endsection
 </x-default-layout>
