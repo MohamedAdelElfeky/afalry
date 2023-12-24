@@ -163,7 +163,18 @@
                 </span>
 
                 <div class="menu-sub menu-sub-accordion">
-
+                    <div class="menu-item">
+                        <a class="menu-link" href="{{ route('settings.index') }}">
+                            <span class="menu-icon">{!! getIcon('setting-4', 'fs-2') !!}</span>
+                            <span class="menu-title"> {{ __('lang.settings') }}</span>
+                        </a>
+                    </div>
+                    <div class="menu-item">
+                        <a class="menu-link" href="{{ route('sidebars.index') }}">
+                            <span class="menu-icon">{!! getIcon('slider-horizontal-2', 'fs-2') !!}</span>
+                            <span class="menu-title"> {{ __('lang.sidebars') }}</span>
+                        </a>
+                    </div>
                     <div class="menu-item">
                         <a class="menu-link" href="{{ route('statuses.index') }}">
                             <span class="menu-icon">{!! getIcon('flag', 'fs-2') !!}</span>

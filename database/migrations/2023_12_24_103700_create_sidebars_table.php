@@ -11,8 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('slidebar', function (Blueprint $table) {
+        Schema::create('sidebars', function (Blueprint $table) {
             $table->id();
+            $table->string('title')->nullable();
+            $table->text('desc')->nullable();
             $table->timestamps();
         });
     }
@@ -22,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('slidebar');
+        Schema::dropIfExists('sidebar');
     }
 };

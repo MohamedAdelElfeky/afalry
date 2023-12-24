@@ -58,6 +58,12 @@
                             </div>
                         @endif
 
+
+                        <div class="mb-3">
+                            <label for="photos">{{ __('lang.photo') }}</label>
+                            <input type="file" name="images" class="form-control form-control-solid" multiple>
+                        </div>
+
                     </div>
 
                     <div class="text-end">

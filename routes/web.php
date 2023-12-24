@@ -21,6 +21,8 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\ReasonController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SettingController;
+use App\Http\Controllers\SidebarController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\SubscriberController;
 use App\Http\Controllers\UsersController;
@@ -50,6 +52,8 @@ Route::resource('questions', QuestionController::class);
 Route::resource('payments', PaymentController::class);
 Route::resource('reasons', ReasonController::class);
 Route::resource('subscribers', SubscriberController::class);
+Route::resource('sidebars', SidebarController::class);
+Route::resource('settings', SettingController::class);
 
 Route::resource('categories', CategoryController::class)->only('store', 'destroy', 'update');
 

@@ -138,4 +138,5 @@ return [
     'payment_type' => 'طريقه الدفع',
     'amount' => 'المدفوع',
     'remind_end' => 'التذكره قبل',
+    'sidebars' => 'الصور المتحركة',
 ];

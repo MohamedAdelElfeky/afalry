@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\CategoryResource;
 use App\Models\Category;
+use App\Models\Image;
 use Illuminate\Http\Request;
 
 /**
@@ -36,6 +37,7 @@ class CategoryController extends Controller
       $request->validate([
          'name' => 'required|array|max:255',
          'description' => 'nullable|string',
+         'images' => 'image|mimes:svg|max:2048',
       ]);
       $type = $request->type;
       if ($type == 'parent') {
@@ -43,6 +45,20 @@ class CategoryController extends Controller
             'name' => $request->name[0],
             'description' => $request->description,
          ]);
+         if (request()->hasFile('images')) {
+            $image = $request->file('images');
+            $imageType = $image->getClientOriginalExtension();
+            $mimeType = $image->getMimeType();
+            $file_name = time() . rand(0, 9999999999999) . '_category.' . $image->getClientOriginalExtension();
+            $image->move(public_path('category/images/'), $file_name);
+            $imagePath = "category/images/" . $file_name;
+            $imageObject = new Image([
+               'url' => $imagePath,
+               'mime' => $mimeType,
+               'image_type' => $imageType,
+            ]);
+            $category->images()->save($imageObject);
+         }
       } elseif ($type == 'child') {
          $categories = [];
          foreach ($request->name as $name) {
@@ -51,6 +67,20 @@ class CategoryController extends Controller
                'description' => $request->description,
                'parent_id' => $request->parent_id,
             ]);
+            if (request()->hasFile('images')) {
+               $image = $request->file('images');
+               $imageType = $image->getClientOriginalExtension();
+               $mimeType = $image->getMimeType();
+               $file_name = time() . rand(0, 9999999999999) . '_category.' . $image->getClientOriginalExtension();
+               $image->move(public_path('category/images/'), $file_name);
+               $imagePath = "category/images/" . $file_name;
+               $imageObject = new Image([
+                  'url' => $imagePath,
+                  'mime' => $mimeType,
+                  'image_type' => $imageType,
+               ]);
+               $category->images()->save($imageObject);
+            }
          }
          $category = $categories;
       }
