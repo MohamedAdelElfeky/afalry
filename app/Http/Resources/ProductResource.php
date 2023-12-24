@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Auth;
@@ -40,7 +41,9 @@ class ProductResource extends JsonResource
 
                 break;
         }
-
+        $averageRate = $this->comments->count() > 0 ?
+            $this->comments->sum('rate') / $this->comments->count() :
+            null;
         return [
             'id' => $this->id,
             'product_erp' => $this->product_erp,
@@ -59,7 +62,28 @@ class ProductResource extends JsonResource
             'product_attribute' =>  $this->productAttributes ? ProductAttributeResource::collection($this->productAttributes) : null,
             'comment' => $this->comments ? CommentResource::collection($this->comments) : null,
             'like' => $this->likes->where('user_id', Auth::id())->where('likable_id', $this->id)->count() > 0,
+            'rate' => $averageRate,
+            'marketing_rate' =>  $this->getMarketingRateSetting(),
+
 
         ];
+    }
+
+    /**
+     * Get the marketing rate setting.
+     *
+     * @return mixed
+     */
+    public function getMarketingRateSetting()
+    {
+        $setting = Setting::where('key', 'marketing_rate')->first();
+
+        // Check if the setting exists
+        if ($setting) {
+            return $setting->value;
+        }
+
+        // Default value or handle the case when the setting doesn't exist
+        return null;
     }
 }

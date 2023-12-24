@@ -28,7 +28,7 @@
 
             <div class="row g-5 g-xl-10 mb-5 mb-xl-10">
 
-                <div class="col-md-6">
+                <div class="col-md-3">
                     <div class="card border border-warning">
                         <div class="card-header">
                             <h5 class="card-title"> {{ __('lang.type_payments') }} </h5>
@@ -77,7 +77,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-3">
                     <div class="card border border-warning">
                         <div class="card-header">
                             <h5 class="card-title"> {{ __('lang.statuses') }} </h5>
@@ -127,7 +127,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-3">
                     <div class="card border border-warning">
                         <div class="card-header">
                             <h5 class="card-title"> {{ __('lang.reasons') }} </h5>
@@ -178,7 +178,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-md-3">
                     <div class="card border border-warning">
                         <div class="card-header">
                             <h5 class="card-title"> {{ __('lang.questions') }} </h5>
@@ -230,7 +230,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-md-3">
                     <div class="card border border-warning">
                         <div class="card-header">
                             <h5 class="card-title"> {{ __('lang.plans') }} </h5>
@@ -280,7 +280,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-md-3">
                     <div class="card border border-warning">
                         <div class="card-header">
                             <h5 class="card-title"> {{ __('lang.complaints') }} </h5>
@@ -332,7 +332,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-md-3">
                     <div class="card border border-warning">
                         <div class="card-header">
                             <h5 class="card-title"> {{ __('lang.users') }} </h5>
@@ -382,7 +382,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-md-3">
                     <div class="card border border-warning">
                         <div class="card-header">
                             <h5 class="card-title"> {{ __('lang.roles') }} </h5>
@@ -432,7 +432,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-md-3">
                     <div class="card border border-warning">
                         <div class="card-header">
                             <h5 class="card-title"> {{ __('lang.carts') }} </h5>
@@ -482,7 +482,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-md-3">
                     <div class="card border border-warning">
                         <div class="card-header">
                             <h5 class="card-title"> {{ __('lang.cities') }} </h5>
@@ -532,7 +532,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-md-3">
                     <div class="card border border-warning">
                         <div class="card-header">
                             <h5 class="card-title"> {{ __('lang.dealers') }} </h5>
@@ -583,7 +583,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-md-3">
                     <div class="card border border-warning">
                         <div class="card-header">
                             <h5 class="card-title"> {{ __('lang.offers') }} </h5>
@@ -634,7 +634,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-md-3">
                     <div class="card border border-warning">
                         <div class="card-header">
                             <h5 class="card-title"> {{ __('lang.orders') }} </h5>

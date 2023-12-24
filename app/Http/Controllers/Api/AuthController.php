@@ -29,7 +29,7 @@ class AuthController extends Controller
             'phone' => 'required|string|unique:users',
             'key_phone' => 'nullable',
             'password' => 'required|string|min:6|confirmed',
-            'avatar' => 'nullable|string',
+            'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'sex' => 'nullable',
             'questions' => 'nullable|array',
             'categories' => 'nullable|array',
