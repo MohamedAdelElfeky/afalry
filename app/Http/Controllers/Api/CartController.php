@@ -79,7 +79,7 @@ class CartController extends Controller
                 return response()->json(['error' => 'Unauthorized'], 401);
             }
 
-            $cart->update(['quantity' => $request->quantity]);
+            $cart->update(['quantity' => $cart->quantity + $request->quantity]);
 
             return response()->json(['message' => 'تم تحديث عنصر سلة التسوق بنجاح']);
         } catch (ModelNotFoundException $exception) {
