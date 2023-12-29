@@ -32,9 +32,11 @@ return new class extends Migration
             $table->decimal('order_total', 8, 2)->nullable();
             $table->decimal('total_profits', 8, 2)->nullable();
             $table->enum('status', ['pending', 'accepted', 'rejected'])->default('pending');
+            $table->unsignedBigInteger('status_id')->nullable();
 
             $table->foreign('user_id')->references('id')->on('users')->nullable();
             $table->foreign('city_id')->references('id')->on('cities')->nullable();
+            $table->foreign('status_id')->references('id')->on('statuses')->nullable();
 
             $table->softDeletes();
             $table->timestamps();

@@ -6,7 +6,7 @@
                 <span class="card-label fw-bold fs-3 mb-1">{{ __('lang.carts') }}</span>
             </h3>
             <div class="card-toolbar" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover">
-              
+
             </div>
         </div>
         <div class="card-body py-3">
@@ -56,19 +56,17 @@
                     <nav role="navigation" aria-label="Pagination Navigation">
                         <div class="flex items-center justify-between">
 
-                            {{-- <a href="{{ $carts->url(1) }}" class="btn btn-outline-secondary">First</a> --}}
                             <a href="{{ $carts->previousPageUrl() }}" class="btn btn-outline-secondary">«
                                 {{ __('lang.previous') }}</a>
 
-                            @foreach ($carts->getUrlRange(1, $carts->lastPage()) as $page => $url)
+                            @foreach ($carts->getUrlRange(max(1, $carts->currentPage() - 1), min($carts->lastPage(), $carts->currentPage() + 1)) as $page => $url)
                                 <a href="{{ $url }}"
-                                    class="btn btn-outline-secondary {{ $page == $carts->currentPage() ? 'active' : '' }}">{{ $loop->iteration }}</a>
+                                    class="btn btn-outline-secondary {{ $page == $carts->currentPage() ? 'active' : '' }}">{{ $page }}</a>
                             @endforeach
 
                             <a href="{{ $carts->nextPageUrl() }}" class="btn btn-outline-secondary">
                                 {{ __('lang.next') }} »</a>
-                            {{-- <a href="{{ $carts->url($carts->lastPage()) }}"
-                                class="btn btn-outline-secondary">Last</a> --}}
+                           
 
                             <div class="text-center">
                                 <p class="text-sm text-gray-700 leading-5">

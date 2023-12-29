@@ -16,6 +16,7 @@ use App\Http\Controllers\Api\StatusController;
 use App\Http\Controllers\Api\PlanController;
 use App\Http\Controllers\Api\QuestionController;
 use App\Http\Controllers\Api\ReasonController;
+use App\Http\Controllers\Api\SidebarController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -57,6 +58,7 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::get('products', [ProductController::class, 'index']);
 Route::get('products/{id}', [ProductController::class, 'show']);
 Route::get('productsByCategory', [ProductController::class, 'productsByCategory']);
+Route::get('sidebars', [SidebarController::class, 'index']);
 
 Route::get('categories', [CategoryController::class, 'index']);
 Route::get('categories/{id}', [CategoryController::class, 'show']);

@@ -3,6 +3,8 @@
 
 return [
     'photo' => 'الصور',
+    'phone' => 'هاتف',
+    'nationality' => 'الجنسية',
     'name' => 'الاسم',
     'categories' => 'الاقسام',
     'category' => 'القسم',
@@ -139,4 +141,10 @@ return [
     'amount' => 'المدفوع',
     'remind_end' => 'التذكره قبل',
     'sidebars' => 'الصور المتحركة',
+    'show_attributes' => 'عرض صفات المنتج',
+    'filter' => 'بحث',
+    'sex' => 'جنس',
+    'male' => 'ذكر',
+    'female' => 'أنثى',
+    'registration_confirmed' => 'تأكيد التسجيل',
 ];

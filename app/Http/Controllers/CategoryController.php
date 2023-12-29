@@ -37,7 +37,7 @@ class CategoryController extends Controller
       $request->validate([
          'name' => 'required|array|max:255',
          'description' => 'nullable|string',
-         'images' => 'image|mimes:svg|max:2048',
+         'images' => 'nullable|image|mimes:svg|max:2048',
       ]);
       $type = $request->type;
       if ($type == 'parent') {
@@ -60,39 +60,68 @@ class CategoryController extends Controller
             $category->images()->save($imageObject);
          }
       } elseif ($type == 'child') {
-         $categories = [];
+         // $categories = [];
          foreach ($request->name as $name) {
-            $categories[] = Category::create([
+            $category = Category::create([
                'name' => $name,
                'description' => $request->description,
                'parent_id' => $request->parent_id,
             ]);
-            if (request()->hasFile('images')) {
-               $image = $request->file('images');
-               $imageType = $image->getClientOriginalExtension();
-               $mimeType = $image->getMimeType();
-               $file_name = time() . rand(0, 9999999999999) . '_category.' . $image->getClientOriginalExtension();
-               $image->move(public_path('category/images/'), $file_name);
-               $imagePath = "category/images/" . $file_name;
-               $imageObject = new Image([
-                  'url' => $imagePath,
-                  'mime' => $mimeType,
-                  'image_type' => $imageType,
-               ]);
-               $category->images()->save($imageObject);
-            }
+            // if (request()->hasFile('images')) {
+            //    $image = $request->file('images'); 
+            //    $imageType = $image->getClientOriginalExtension();
+            //    $mimeType = $image->getMimeType();
+            //    $file_name = time() . rand(0, 9999999999999) . '_category.' . $image->getClientOriginalExtension();
+            //    $image->move(public_path('category/images/'), $file_name);
+            //    $imagePath = "category/images/" . $file_name;
+            //    $imageObject = new Image([
+            //       'url' => $imagePath,
+            //       'mime' => $mimeType,
+            //       'image_type' => $imageType,
+            //    ]);
+            //    $category->images()->save($imageObject);
+            // }
          }
-         $category = $categories;
+         // $category = $categories;
       }
 
       return response()->json($category);
    }
+
    public function update(Request $request, $id)
    {
       $category = Category::find($id);
-      $category->update($request->all());
+
+      // Validate request data
+      $request->validate([
+         'name' => 'required',
+         'description' => 'nullable',
+         'images' => 'nullable|image|mimes:svg|max:2048',
+      ]);
+
+      // Update category details
+      $category->update($request->except('images'));
+
+      // Handle image upload
+      if ($request->hasFile('images')) {
+         $image = $request->file('images');
+         $imageType = $image->getClientOriginalExtension();
+         $mimeType = $image->getMimeType();
+         $file_name = time() . rand(0, 9999999999999) . '_category.' . $imageType;
+         $image->move(public_path('category/images/'), $file_name);
+         $imagePath = "category/images/" . $file_name;
+         $imageObject = new Image([
+            'url' => $imagePath,
+            'mime' => $mimeType,
+            'image_type' => $imageType,
+         ]);
+         $category->images()->save($imageObject);
+      }
+
       return response()->json(['message' => 'Category updated successfully']);
    }
+
+
    public function destroy($id)
    {
       $category = Category::findOrFail($id);
@@ -103,5 +132,12 @@ class CategoryController extends Controller
       } catch (\Exception $e) {
          return response()->json(['error' => 'Error deleting category'], 500);
       }
+   }
+
+   public function show(Category $category)
+   {
+      return view('pages.dashboards.categories.show', [
+         'category' => $category,
+      ]);
    }
 }

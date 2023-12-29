@@ -27,6 +27,6 @@ class CategoryResource extends JsonResource
             'images' => $this->images ? ImageResource::collection($this->images) : null,
             'parent' => $this->parent ? $this->parent->name : null,
             'children' => $this->children ? CategoryChildResource::collection($this->children) : null,
-                ];
+        ];
     }
 }

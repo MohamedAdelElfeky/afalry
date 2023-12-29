@@ -15,7 +15,7 @@
                     <table class="table table-bordered text-center table-sm" id="dataTable">
                         <thead class="bg-light-primary">
                             <th class="text-center">{{ __('lang.name') }} </th>
-                            <th class="text-center">{{ __('lang.action') }} </th>
+                            <th class="text-center">{{ __('lang.actions') }} </th>
                         </thead>
                         <tbody>
                             @foreach ($roles  as $item)
@@ -41,9 +41,6 @@
             </div>
         </div>
     </div>
-    @include('pages/dashboards/roles/_add')
-
-
     @section('script')
         <script>
             $(document).ready(function() {

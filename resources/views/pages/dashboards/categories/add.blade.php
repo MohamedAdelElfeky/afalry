@@ -61,7 +61,7 @@
 
                         <div class="mb-3">
                             <label for="photos">{{ __('lang.photo') }}</label>
-                            <input type="file" name="images" class="form-control form-control-solid" multiple>
+                            <input type="file" name="images" class="form-control form-control-solid" accept=".svg">
                         </div>
 
                     </div>

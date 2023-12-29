@@ -79,19 +79,16 @@
                     <nav role="navigation" aria-label="Pagination Navigation">
                         <div class="flex items-center justify-between">
 
-                            {{-- <a href="{{ $plans->url(1) }}" class="btn btn-outline-secondary">First</a> --}}
                             <a href="{{ $plans->previousPageUrl() }}" class="btn btn-outline-secondary">«
                                 {{ __('lang.previous') }}</a>
 
-                            @foreach ($plans->getUrlRange(1, $plans->lastPage()) as $page => $url)
+                            @foreach ($plans->getUrlRange(max(1, $plans->currentPage() - 1), min($plans->lastPage(), $plans->currentPage() + 1)) as $page => $url)
                                 <a href="{{ $url }}"
-                                    class="btn btn-outline-secondary {{ $page == $plans->currentPage() ? 'active' : '' }}">{{ $loop->iteration }}</a>
+                                    class="btn btn-outline-secondary {{ $page == $plans->currentPage() ? 'active' : '' }}">{{ $page }}</a>
                             @endforeach
 
                             <a href="{{ $plans->nextPageUrl() }}" class="btn btn-outline-secondary">
                                 {{ __('lang.next') }} »</a>
-                            {{-- <a href="{{ $plans->url($plans->lastPage()) }}"
-                                class="btn btn-outline-secondary">Last</a> --}}
 
                             <div class="text-center">
                                 <p class="text-sm text-gray-700 leading-5">

@@ -6,7 +6,7 @@
                 <span class="card-label fw-bold fs-3 mb-1">{{ __('lang.complaints') }}</span>
             </h3>
             <div class="card-toolbar" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover">
-              
+
             </div>
         </div>
         <div class="card-body py-3">
@@ -48,24 +48,21 @@
                         @endforeach
                     </tbody>
                 </table>
-                
+
                 <div class="pagination justify-content-center">
                     <nav role="navigation" aria-label="Pagination Navigation">
                         <div class="flex items-center justify-between">
 
-                            {{-- <a href="{{ $complaints->url(1) }}" class="btn btn-outline-secondary">First</a> --}}
                             <a href="{{ $complaints->previousPageUrl() }}" class="btn btn-outline-secondary">«
                                 {{ __('lang.previous') }}</a>
 
-                            @foreach ($complaints->getUrlRange(1, $complaints->lastPage()) as $page => $url)
+                            @foreach ($complaints->getUrlRange(max(1, $complaints->currentPage() - 1), min($complaints->lastPage(), $complaints->currentPage() + 1)) as $page => $url)
                                 <a href="{{ $url }}"
-                                    class="btn btn-outline-secondary {{ $page == $complaints->currentPage() ? 'active' : '' }}">{{ $loop->iteration }}</a>
+                                    class="btn btn-outline-secondary {{ $page == $complaints->currentPage() ? 'active' : '' }}">{{ $page }}</a>
                             @endforeach
 
                             <a href="{{ $complaints->nextPageUrl() }}" class="btn btn-outline-secondary">
                                 {{ __('lang.next') }} »</a>
-                            {{-- <a href="{{ $complaints->url($complaints->lastPage()) }}"
-                                class="btn btn-outline-secondary">Last</a> --}}
 
                             <div class="text-center">
                                 <p class="text-sm text-gray-700 leading-5">

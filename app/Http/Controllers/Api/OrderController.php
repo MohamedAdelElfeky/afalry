@@ -37,7 +37,7 @@ class OrderController extends Controller
             'email' => 'required|email',
             'phone_number' => 'required|string',
             'extra_phone_number' => 'nullable|string',
-            'status' => 'required|string',
+            // 'status' => 'required|string',
             'items' => 'required|array',
             'items.*.product_id' => 'required|exists:products,id',
             'items.*.quantity' => 'required|integer|min:1',

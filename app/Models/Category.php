@@ -22,18 +22,22 @@ class Category extends Model
         'description',
         'parent_id',
     ];
+
     public function products()
     {
         return $this->hasMany(Product::class, 'category_id');
     }
+
     public function images(): MorphMany
     {
         return $this->morphMany(Image::class, 'imageable');
     }
+
     public function parent()
     {
         return $this->belongsTo(Category::class, 'parent_id');
     }
+
     public function children()
     {
         return $this->hasMany(Category::class, 'parent_id');

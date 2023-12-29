@@ -34,10 +34,12 @@ class Product extends Model
     protected $casts = [
         'plans' => 'array',
     ];
+
     public function productAttributes()
     {
         return $this->hasMany(ProductAttribute::class, 'product_id');
     }
+
     public function images(): MorphMany
     {
         return $this->morphMany(Image::class, 'imageable');
@@ -47,6 +49,7 @@ class Product extends Model
     {
         return $this->morphMany(Comment::class, 'commentable');
     }
+
     public function category()
     {
         return $this->belongsTo(Category::class);
@@ -56,6 +59,7 @@ class Product extends Model
     {
         return $this->belongsToMany(Cart::class);
     }
+    
     public function likes()
     {
         return $this->morphMany(Like::class, 'likable');

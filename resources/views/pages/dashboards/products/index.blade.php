@@ -1,4 +1,12 @@
 <x-default-layout>
+    <style type="text/css">
+        .image-container {
+            width: 150px;
+            /* Adjust the width as needed */
+            overflow-x: scroll;
+            white-space: nowrap;
+        }
+    </style>
     <div class="card mb-5 mb-xl-8">
         <div class="card-header border-0 pt-5">
             <h3 class="card-title align-items-start flex-column">
@@ -16,6 +24,10 @@
                     <i class="ki-duotone ki-plus fs-2"></i>{{ __('lang.create_new_product') }}</a>
             </div>
         </div>
+
+        <div class="card-body py-3">
+        </div>
+
         <div class="card-body py-3">
             <div class="table-responsive">
                 <table class="table table-row-dashed table-sm text-center gs-0 gy-4">
@@ -39,7 +51,7 @@
                     <tbody>
                         @foreach ($products as $item)
                             <tr>
-                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $item->id }}</td>
                                 <td>{{ $item->name }}</td>
                                 <td>{{ $item->description }}</td>
                                 <td>{{ $item->price }}</td>
@@ -49,14 +61,23 @@
                                         {{ __('lang.' . $item->type_discount) }}
                                     @endif
                                 </td>
+
                                 <td>{{ $item->discount }}</td>
+
                                 <td>
                                     @if ($item->category)
-                                        {{ $item->category->name }}
+                                        <a class="btn btn-icon btn-bg-light btn-color-primary w-md-100px"
+                                            href="{{ route('categories.show', ['category' => $item->category->id]) }}">
+                                            {{ $item->category->name }}
+                                        </a>
                                     @else
-                                        {{ __('lang.no_category_available') }}
+                                        <span class="btn btn-icon btn-danger btn-sm me-1">
+                                            {!! getIcon('tablet-delete', 'fs-2') !!}
+                                        </span>
                                     @endif
+
                                 </td>
+
                                 <td class="text-center">
                                     <!-- Toggle Switch -->
                                     <div class="form-check form-switch">
@@ -74,34 +95,100 @@
                                             @endphp
 
                                             @if ($plan)
-                                                {{ $plan->name }} <br>
+                                                <a class="btn btn-icon btn-bg-light btn-color-primary w-md-100px"
+                                                    href="{{ route('plans.show', ['plan' => $plan->id]) }}">{{ $plan->name }}</a>
+                                                <br>
                                             @else
                                                 {{ __('lang.unknown_plan') }} <br>
                                             @endif
                                         @endforeach
                                     @else
-                                        {{ __('lang.no_plans') }}
+                                        <span class="btn btn-icon btn-danger btn-sm me-1">
+                                            {!! getIcon('tablet-delete', 'fs-2') !!}
+                                        </span>
                                     @endif
                                 </td>
 
                                 <td>
-                                    @if ($item->images->isNotEmpty())
-                                        @foreach ($item->images as $image)
-                                            <a href="{{ asset($image->url) }}"
-                                                target="_blank">{{ __('lang.view_image') }}</a> <br>
-                                        @endforeach
-                                    @else
-                                        {{ __('lang.no_images') }}
-                                    @endif
+                                    <div class="d-flex justify-content-center">
+                                        <div class="image-container">
+                                            @if ($item->images->isNotEmpty())
+                                                @foreach ($item->images as $image)
+                                                    <a href="{{ asset("$image->url") }}" target="_blank">
+                                                        <div class="symbol symbol-75px me-5">
+                                                            <img src="{{ asset("$image->url") }}" alt="Photo">
+                                                        </div>
+                                                    </a>
+                                                @endforeach
+                                            @else
+                                                <div class="symbol symbol-75px me-5">
+                                                    <img src="{{ asset('default.png') }}" alt="Default Photo">
+                                                </div>
+                                            @endif
+                                        </div>
+                                    </div>
                                 </td>
 
                                 <td>
                                     @if ($item->productAttributes->isNotEmpty())
-                                        @foreach ($item->productAttributes as $attribute)
-                                            {{ $attribute->attribute }} : {{ $attribute->value }}<br>
-                                        @endforeach
+                                        <a class="btn btn-icon btn-bg-light btn-color-primary" data-bs-toggle="modal"
+                                            data-bs-target="#attributesModal{{ $item->id }}">
+                                            {!! getIcon('eye', 'fs-2') !!}
+                                        </a>
+
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="attributesModal{{ $item->id }}" tabindex="-1"
+                                            aria-labelledby="attributesModalLabel{{ $item->id }}"
+                                            aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title"
+                                                            id="attributesModalLabel{{ $item->id }}">
+                                                            {{ __('lang.product_attributes') }}
+                                                        </h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+
+                                                        <table
+                                                            class="table table-row-dashed table-sm text-center gs-0 gy-4">
+                                                            <thead class="fw-bold text-muted">
+                                                                <tr>
+                                                                    <th>
+                                                                        {{ __('lang.attribute') }}
+                                                                    </th>
+                                                                    <th>
+                                                                        {{ __('lang.value') }}
+                                                                    </th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @foreach ($item->productAttributes as $attribute)
+                                                                    <tr>
+                                                                        <td>
+                                                                            {{ $attribute->attribute }}
+                                                                        </td>
+                                                                        <td>
+                                                                            {{ $attribute->value }}
+                                                                        </td>
+                                                                    </tr>
+                                                                @endforeach
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">{{ __('lang.close') }}</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     @else
-                                        {{ __('lang.no_attributes_available') }}
+                                        <span class="btn btn-icon btn-danger btn-sm me-1">
+                                            {!! getIcon('tablet-delete', 'fs-2') !!}
+                                        </span>
                                     @endif
                                 </td>
 
@@ -141,10 +228,11 @@
                             <a href="{{ $products->previousPageUrl() }}" class="btn btn-outline-secondary">«
                                 {{ __('lang.previous') }}</a>
 
-                            @foreach ($products->getUrlRange(1, $products->lastPage()) as $page => $url)
+                            @foreach ($products->getUrlRange(max(1, $products->currentPage() - 1), min($products->lastPage(), $products->currentPage() + 1)) as $page => $url)
                                 <a href="{{ $url }}"
-                                    class="btn btn-outline-secondary {{ $page == $products->currentPage() ? 'active' : '' }}">{{ $loop->iteration }}</a>
+                                    class="btn btn-outline-secondary {{ $page == $products->currentPage() ? 'active' : '' }}">{{ $page }}</a>
                             @endforeach
+
 
                             <a href="{{ $products->nextPageUrl() }}" class="btn btn-outline-secondary">
                                 {{ __('lang.next') }} »</a>

@@ -57,14 +57,17 @@ Route::resource('settings', SettingController::class);
 
 Route::resource('categories', CategoryController::class)->only('store', 'destroy', 'update');
 
-Route::get('/categories/{type}', [CategoryController::class, 'index'])->name('categories.index');
+Route::get('/showCategories/{type}', [CategoryController::class, 'index'])->name('categories.index');
+Route::get('/showCategory/{category}', [CategoryController::class, 'show'])->name('categories.show');
 
 Route::post('updateProduct/status', [ProductController::class, 'updateProductStatus'])->name('update.product.status');
+
 Route::middleware('role:admin')->get('/users', function () {
     // ...
 });
 Route::resource('roles', RoleController::class);
 
+Route::post('updateStatus/status', [UsersController::class, 'updateStatus'])->name('update.admin.status');
 Route::get('/admins', [UsersController::class, 'admins'])->name('admins.index');
 Route::get('/users', [UsersController::class, 'users'])->name('users.index');
 

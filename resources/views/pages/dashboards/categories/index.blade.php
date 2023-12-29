@@ -19,6 +19,26 @@
             </div>
         </div>
         <div class="card-body py-3">
+
+            {{-- <form action="{{ route('categories.index', ['type' => 'parent']) }}" method="GET" class="mb-4 pt-2">
+                <div class="row pt-2">
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <label for="name" class="form-label mb-3">{{ __('lang.name') }}</label>
+                            <input type="text" name="name" id="name"
+                                class="form-control form-control-lg form-control-solid" value="{{ request('name') }}">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row pt-2 text-center">
+                    <div class="col-lg-12">
+                        <button type="submit" class="btn btn-primary">{{ __('lang.filter') }}</button>
+                    </div>
+                </div>
+            </form> --}}
+
+
             <div class="table-responsive">
                 <table class="table table-row-dashed table-sm text-center gs-0 gy-4">
                     <thead>
@@ -31,26 +51,102 @@
                             @elseif ($type == 'child')
                                 <th class="min-w-150px">{{ __('lang.main_category') }}</th>
                             @endif
+                            <th class="min-w-150px">{{ __('lang.image') }}</th>
                             <th class="min-w-100px text-end">{{ __('lang.actions') }}</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($categories as $item)
                             <tr>
-                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $item->id }}</td>
                                 <td>{{ $item->name }}</td>
                                 <td>{{ $item->description }}</td>
+
                                 @if ($type == 'parent')
                                     <td>
-                                        @forelse  ($item->children as $child)
-                                            {{ $child->name }} <br>
-                                        @empty
-                                            {{ __('lang.no_children') }}
-                                        @endforelse
+                                        @if ($item->children->isNotEmpty())
+                                            <a class="btn btn-icon btn-bg-light btn-color-primary"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#childItemsModal{{ $item->id }}">
+                                                {!! getIcon('eye', 'fs-2') !!}
+                                            </a>
+
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="childItemsModal{{ $item->id }}"
+                                                tabindex="-1"
+                                                aria-labelledby="childItemsModalLabel{{ $item->id }}"
+                                                aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title"
+                                                                id="childItemsModalLabel{{ $item->id }}">
+                                                                {{ __('lang.child_categories') . ' ' . $item->name }}
+                                                            </h5>
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <table
+                                                                class="table table-row-dashed table-sm text-center gs-0 gy-4">
+                                                                <thead class="fw-bold text-muted">
+                                                                    <tr>
+                                                                        <th>
+                                                                            {{ __('lang.child_categories') }}
+                                                                        </th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach ($item->children as $child)
+                                                                        <tr>
+                                                                            <td>
+                                                                                {{ $child->name }}
+                                                                            </td>
+                                                                        </tr>
+                                                                    @endforeach
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">{{ __('lang.close') }}</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @else
+                                            <span class="btn btn-icon btn-danger btn-sm me-1">
+                                                {!! getIcon('tablet-delete', 'fs-2') !!}
+                                            </span>
+                                        @endif
                                     </td>
                                 @elseif ($type == 'child')
                                     <td>{{ $item->parent ? $item->parent->name : ' ' }}</td>
                                 @endif
+
+                                <td>
+                                    <div class="d-flex justify-content-center">
+                                        <div class="image-container">
+                                            @if ($item->images->isNotEmpty())
+                                                @foreach ($item->images as $image)
+                                                    <a href="{{ asset($image->url ?? 'default.png') }}"
+                                                        target="_blank">
+                                                        <div class="symbol symbol-75px me-5">
+                                                            <img src="{{ asset($image->url ?? 'default.png') }}"
+                                                                alt="Photo">
+                                                        </div>
+                                                    </a>
+                                                @endforeach
+                                            @else
+                                                <div class="symbol symbol-75px me-5">
+                                                    <img src="{{ asset('default.png') }}" alt="Default Photo">
+                                                </div>
+                                            @endif
+
+                                        </div>
+                                    </div>
+                                </td>
+
                                 <td>
                                     <div class="d-flex justify-content-end flexpca-shrink-0">
 
@@ -83,19 +179,16 @@
                     <nav role="navigation" aria-label="Pagination Navigation">
                         <div class="flex items-center justify-between">
 
-                            {{-- <a href="{{ $categories->url(1) }}" class="btn btn-outline-secondary">First</a> --}}
                             <a href="{{ $categories->previousPageUrl() }}" class="btn btn-outline-secondary">«
                                 {{ __('lang.previous') }}</a>
 
-                            @foreach ($categories->getUrlRange(1, $categories->lastPage()) as $page => $url)
+                            @foreach ($categories->getUrlRange(max(1, $categories->currentPage() - 1), min($categories->lastPage(), $categories->currentPage() + 1)) as $page => $url)
                                 <a href="{{ $url }}"
-                                    class="btn btn-outline-secondary {{ $page == $categories->currentPage() ? 'active' : '' }}">{{ $loop->iteration }}</a>
+                                    class="btn btn-outline-secondary {{ $page == $categories->currentPage() ? 'active' : '' }}">{{ $page }}</a>
                             @endforeach
 
                             <a href="{{ $categories->nextPageUrl() }}" class="btn btn-outline-secondary">
                                 {{ __('lang.next') }} »</a>
-                            {{-- <a href="{{ $categories->url($categories->lastPage()) }}"
-                                class="btn btn-outline-secondary">Last</a> --}}
 
                             <div class="text-center">
                                 <p class="text-sm text-gray-700 leading-5">
@@ -119,6 +212,28 @@
     @include('pages/dashboards/categories/add')
 
     @section('script')
+        <script>
+            document.getElementById('applyFilters').addEventListener('click', function() {
+                var nameFilter = document.getElementById('nameFilter').value;
+                var descriptionFilter = document.getElementById('descriptionFilter').value;
+
+                // Use AJAX to send filter parameters to the server and update the table
+                // You may use a JavaScript framework or library like Axios or jQuery for this
+                // Example using Fetch API:
+                fetch(`showCategories/parent?name=${nameFilter}&description=${descriptionFilter}`, {
+                        method: 'GET',
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        // Update the table with the filtered data
+                        // This may involve replacing the entire table or updating the rows
+                    })
+                    .catch(error => console.error('Error applying filters:', error));
+            });
+        </script>
+
+
+
         <script>
             $(document).ready(function() {
                 $('#createForm').submit(function(e) {

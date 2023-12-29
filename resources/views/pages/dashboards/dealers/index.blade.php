@@ -65,22 +65,20 @@
                     <nav role="navigation" aria-label="Pagination Navigation">
                         <div class="flex items-center justify-between">
 
-                            {{-- <a href="{{ $dealers->url(1) }}" class="btn btn-outline-secondary">First</a> --}}
                             <a href="{{ $dealers->previousPageUrl() }}" class="btn btn-outline-secondary">«
                                 {{ __('lang.previous') }}</a>
 
-                            @foreach ($dealers->getUrlRange(1, $dealers->lastPage()) as $page => $url)
+                            @foreach ($dealers->getUrlRange(max(1, $dealers->currentPage() - 1), min($dealers->lastPage(), $dealers->currentPage() + 1)) as $page => $url)
                                 <a href="{{ $url }}"
-                                    class="btn btn-outline-secondary {{ $page == $dealers->currentPage() ? 'active' : '' }}">{{ $loop->iteration }}</a>
+                                    class="btn btn-outline-secondary {{ $page == $dealers->currentPage() ? 'active' : '' }}">{{ $page }}</a>
                             @endforeach
 
-                            <a href="{{ $dealers->nextPageUrl() }}" class="btn btn-outline-secondary"> {{ __('lang.next') }} »</a>
-                            {{-- <a href="{{ $dealers->url($dealers->lastPage()) }}"
-                                class="btn btn-outline-secondary">Last</a> --}}
+                            <a href="{{ $dealers->nextPageUrl() }}" class="btn btn-outline-secondary">
+                                {{ __('lang.next') }} »</a>
 
                             <div class="text-center">
                                 <p class="text-sm text-gray-700 leading-5">
-                                 {{ __('lang.showing') }}
+                                    {{ __('lang.showing') }}
                                     <span class="font-medium">{{ $dealers->firstItem() }}</span>
                                     {{ __('lang.to') }}
                                     <span class="font-medium">{{ $dealers->lastItem() }}</span>

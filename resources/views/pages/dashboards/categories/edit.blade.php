@@ -43,6 +43,11 @@
                                 </select>
                             </div>
                         @endif
+
+                        <div class="mb-3">
+                            <label for="photos">{{ __('lang.photo') }}</label>
+                            <input type="file" name="images" class="form-control form-control-solid" accept=".svg">
+                        </div>
                     </div>
                     <div class="text-end">
                         <button type="submit" class="btn btn-primary">{{ __('lang.save') }}</button>

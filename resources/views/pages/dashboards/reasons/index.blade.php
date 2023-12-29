@@ -65,22 +65,20 @@
                     <nav role="navigation" aria-label="Pagination Navigation">
                         <div class="flex items-center justify-between">
 
-                            {{-- <a href="{{ $reasons->url(1) }}" class="btn btn-outline-secondary">First</a> --}}
                             <a href="{{ $reasons->previousPageUrl() }}" class="btn btn-outline-secondary">«
                                 {{ __('lang.previous') }}</a>
 
-                            @foreach ($reasons->getUrlRange(1, $reasons->lastPage()) as $page => $url)
+                            @foreach ($reasons->getUrlRange(max(1, $reasons->currentPage() - 1), min($reasons->lastPage(), $reasons->currentPage() + 1)) as $page => $url)
                                 <a href="{{ $url }}"
-                                    class="btn btn-outline-secondary {{ $page == $reasons->currentPage() ? 'active' : '' }}">{{ $loop->iteration }}</a>
+                                    class="btn btn-outline-secondary {{ $page == $reasons->currentPage() ? 'active' : '' }}">{{ $page }}</a>
                             @endforeach
 
-                            <a href="{{ $reasons->nextPageUrl() }}" class="btn btn-outline-secondary"> {{ __('lang.next') }} »</a>
-                            {{-- <a href="{{ $reasons->url($reasons->lastPage()) }}"
-                                class="btn btn-outline-secondary">Last</a> --}}
+                            <a href="{{ $reasons->nextPageUrl() }}" class="btn btn-outline-secondary">
+                                {{ __('lang.next') }} »</a>                            
 
                             <div class="text-center">
                                 <p class="text-sm text-gray-700 leading-5">
-                                 {{ __('lang.showing') }}
+                                    {{ __('lang.showing') }}
                                     <span class="font-medium">{{ $reasons->firstItem() }}</span>
                                     {{ __('lang.to') }}
                                     <span class="font-medium">{{ $reasons->lastItem() }}</span>
